@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     /**
-     * Middlewares globaux exécutés pour chaque requête.
+     * Middlewares globaux exécutés pour chaque requête HTTP.
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
@@ -39,5 +39,6 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth.custom' => \App\Http\Middleware\AuthenticateUser::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
     ];
 }

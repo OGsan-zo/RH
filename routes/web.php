@@ -34,4 +34,21 @@ Route::prefix('RH')->group(function () {
     // Déconnexion
     Route::get('/logout', [AuthController::class, 'logout'])->name('rh.logout');
 
+
+    // Tableau de bord RH
+    Route::get('/dashboard', function () {
+        return view('rh.dashboard');
+    })->middleware(['auth.custom', 'role:rh'])->name('rh.dashboard');
+
+    // Tableau de bord Admin
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    })->middleware(['auth.custom', 'role:admin'])->name('admin.dashboard');
+
+    // Espace candidat
+    Route::get('/candidat', function () {
+        return view('candidat.dashboard');
+    })->middleware(['auth.custom', 'role:candidat'])->name('candidat.dashboard');
+
+
 });
