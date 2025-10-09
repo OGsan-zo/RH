@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,12 @@ Route::prefix('RH')->group(function () {
 
     Route::post('/register', [RegisterController::class, 'store'])
         ->name('rh.register.store');
+
+    // Connexion
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('rh.login.form');
+    Route::post('/login', [AuthController::class, 'login'])->name('rh.login.process');
+
+    // Déconnexion
+    Route::get('/logout', [AuthController::class, 'logout'])->name('rh.logout');
+
 });
