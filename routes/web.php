@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DepartementController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,17 @@ Route::prefix('RH')->group(function () {
     Route::post('/change-password', [AuthController::class, 'updatePassword'])
         ->middleware(['auth.custom', 'role:candidat'])
         ->name('rh.password.update');
+
+
+
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/departements', [DepartementController::class, 'index'])->name('departements.index');
+        Route::get('/departements/create', [DepartementController::class, 'create'])->name('departements.create');
+        Route::post('/departements', [DepartementController::class, 'store'])->name('departements.store');
+        Route::get('/departements/{id}/edit', [DepartementController::class, 'edit'])->name('departements.edit');
+        Route::post('/departements/{id}/update', [DepartementController::class, 'update'])->name('departements.update');
+        Route::get('/departements/{id}/delete', [DepartementController::class, 'destroy'])->name('departements.delete');
+    });
 
 
 });
