@@ -35,4 +35,20 @@ class AuthService
 
         return $user;
     }
+
+    public function attemptLogin(string $email, string $password)
+    {
+        $user = \App\Models\User::where('email', $email)->first();
+
+        if (!$user) {
+            return null;
+        }
+
+        if (!\Illuminate\Support\Facades\Hash::check($password, $user->password)) {
+            return null;
+        }
+
+        return $user;
+    }
+
 }
