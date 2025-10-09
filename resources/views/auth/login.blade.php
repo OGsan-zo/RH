@@ -27,5 +27,10 @@
         <button type="submit" class="btn btn-primary w-100">Se connecter</button>
     </form>
 </div>
+<div class="mt-3 text-center">
+    <a href="{{ route('rh.register.form') }}">Créer un compte candidat</a> |
+    <a href="{{ route('rh.password.form') }}">Changer mon mot de passe</a>
+</div>
+
 </body>
 </html>
