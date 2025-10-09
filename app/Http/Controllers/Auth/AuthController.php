@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -55,4 +57,30 @@ class AuthController extends Controller
         session()->flush();
         return redirect('/RH/login')->with('success', 'Déconnexion réussie.');
     }
+
+
+    public function showChangePasswordForm()
+    {
+        return view('auth.change_password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|min:6',
+            'new_password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = \App\Models\User::find(session('user_id'));
+
+        if (!$user || !Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Mot de passe actuel incorrect.']);
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->route('rh.candidat')->with('success', 'Mot de passe mis à jour avec succès.');
+    }
+
 }

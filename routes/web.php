@@ -51,4 +51,14 @@ Route::prefix('RH')->group(function () {
     })->middleware(['auth.custom', 'role:candidat'])->name('candidat.dashboard');
 
 
+    // Modifier le mot de passe (candidat uniquement)
+    Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])
+        ->middleware(['auth.custom', 'role:candidat'])
+        ->name('rh.password.form');
+
+    Route::post('/change-password', [AuthController::class, 'updatePassword'])
+        ->middleware(['auth.custom', 'role:candidat'])
+        ->name('rh.password.update');
+
+
 });
