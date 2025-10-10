@@ -1,5 +1,5 @@
 @php
-    $role = session('user_role'); // récupère le rôle courant (admin, rh, candidat)
+    $role = session('user_role'); // Rôle actuel : admin, rh, candidat
 @endphp
 
 <div class="bg-dark text-white p-3" style="width: 250px; min-height:100vh;">
@@ -15,7 +15,7 @@
 
     <ul class="nav flex-column">
 
-        {{-- 🧭 Liens visibles par ADMIN uniquement --}}
+        {{-- ================= ADMIN ================= --}}
         @if($role === 'admin')
             <li class="nav-item mb-2">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link text-white">Dashboard</a>
@@ -26,15 +26,12 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('annonces.index') }}" class="nav-link text-white">Annonces</a>
             </li>
-            {{-- <li class="nav-item mb-2">
-                <a href="{{ route('admin.users') ?? '#' }}" class="nav-link text-white">Utilisateurs</a>
-            </li> --}}
         @endif
 
-        {{-- 🧭 Liens visibles par RH uniquement --}}
+        {{-- ================= RH ================= --}}
         @if($role === 'rh')
             <li class="nav-item mb-2">
-                <a href="{{ route('rh.dashboard') }}" class="nav-link text-white">Dashboard</a>
+                <a href="{{ route('rh.dashboard') }}" class="nav-link text-white">Dashboard RH</a>
             </li>
             <li class="nav-item mb-2">
                 <a href="{{ route('departements.index') }}" class="nav-link text-white">Départements</a>
@@ -43,20 +40,18 @@
                 <a href="{{ route('annonces.index') }}" class="nav-link text-white">Annonces</a>
             </li>
             <li class="nav-item mb-2">
-                <a href="{{ route('tests.create') }}" class="nav-link text-white">Tests QCM</a>
+                <a href="{{ route('tests.create') }}" class="nav-link text-white">Créer un test QCM</a>
             </li>
             <li class="nav-item mb-2">
-                <a href="{{ route('tests.view') }}" class="nav-link text-white">Voir tests QCM</a>
+                <a href="{{ route('tests.view') }}" class="nav-link text-white">Voir les tests QCM</a>
             </li>
             <li class="nav-item mb-2">
-                <a href="#" class="nav-link text-white">Entretiens</a>
+                <a href="{{ route('resultats.select') }}" class="nav-link text-white">Résultats QCM candidats</a>
             </li>
-            <li class="nav-item mb-2">
-                <a href="#" class="nav-link text-white">Candidatures</a>
-            </li>
+
         @endif
 
-        {{-- 🧭 Liens visibles par CANDIDAT uniquement --}}
+        {{-- ================= CANDIDAT ================= --}}
         @if($role === 'candidat')
             <li class="nav-item mb-2">
                 <a href="{{ route('candidat.dashboard') }}" class="nav-link text-white">Dashboard</a>
@@ -68,16 +63,13 @@
                 <a href="{{ route('candidatures.suivi') }}" class="nav-link text-white">Suivi de candidature</a>
             </li>
             <li class="nav-item mb-2">
-                <a href="#" class="nav-link text-white">Mes candidatures</a>
-            </li>
-            <li class="nav-item mb-2">
-                <a href="{{ route('rh.password.form') }}" class="nav-link text-white">Modifier mot de passe</a>
+                <a href="{{ route('tests.select') }}" class="nav-link text-white">Passer un test</a>
             </li>
         @endif
 
         <hr class="text-white">
 
-        {{-- 🔒 Déconnexion (visible pour tous les rôles connectés) --}}
+        {{-- ================= DÉCONNEXION ================= --}}
         <li class="nav-item mb-2">
             <a href="{{ route('rh.logout') }}" class="nav-link text-danger">Déconnexion</a>
         </li>
