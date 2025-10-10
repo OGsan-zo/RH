@@ -21,6 +21,12 @@
         <h5>{{ $test->titre }}</h5>
         <p class="text-muted">{{ $test->description }}</p>
 
+        <a href="{{ route('tests.delete', $test->id) }}"
+           class="btn btn-danger"
+           onclick="return confirm('Supprimer définitivement ce test ?')">
+           Supprimer le test
+        </a>
+
         @foreach($test->questions as $q)
             <div class="mt-3">
                 <strong>{{ $loop->iteration }}. {{ $q->intitule }}</strong>
