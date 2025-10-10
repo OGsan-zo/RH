@@ -37,7 +37,7 @@
     <td>{{ $c->date_fin ?? '-' }}</td>
     <td>{{ number_format($c->salaire,2) }} Ar</td>
     <td>
-        <a href="{{ route('contrats.edit',$c->id) }}" class="btn btn-primary btn-sm">Modifier</a>
+        <a href="{{ route('contrats.edit',$c->id) }}" class="btn btn-primary btn-sm">Renouveler</a>
     </td>
 </tr>
 @endforeach
