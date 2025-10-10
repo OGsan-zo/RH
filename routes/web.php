@@ -11,6 +11,7 @@ use App\Http\Controllers\TestEnLigneController;
 use App\Http\Controllers\ResultatController;
 use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\EntretienCandidatController;
+use App\Http\Controllers\EvaluationEntretienController;
 
 
 /*
@@ -141,6 +142,15 @@ Route::prefix('RH')->group(function () {
         Route::get('/entretiens/notifications', [EntretienCandidatController::class, 'index'])->name('entretiens.notifications');
         Route::get('/entretiens/{id}/{decision}', [EntretienCandidatController::class, 'reponse'])->name('entretiens.reponse');
     });
+
+
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/evaluations', [EvaluationEntretienController::class, 'index'])->name('evaluations.index');
+        Route::get('/evaluations/{id}/create', [EvaluationEntretienController::class, 'create'])->name('evaluations.create');
+        Route::post('/evaluations/{id}/store', [EvaluationEntretienController::class, 'store'])->name('evaluations.store');
+        Route::get('/evaluations/resultats', [EvaluationEntretienController::class, 'resultats'])->name('evaluations.resultats');
+    });
+
 
 
 });
