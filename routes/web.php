@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CandidatureController;
 
 
 /*
@@ -98,6 +99,13 @@ Route::prefix('RH')->group(function () {
     });
 
 
+
+    Route::middleware(['auth.custom', 'role:candidat'])->group(function () {
+        Route::get('/candidatures', [CandidatureController::class, 'index'])->name('candidatures.index');
+        Route::get('/candidature/{id}', [CandidatureController::class, 'show'])->name('candidatures.show');
+        Route::get('/candidature/{id}/postuler', [CandidatureController::class, 'postuler'])->name('candidatures.postuler');
+        Route::get('/candidatures/suivi', [CandidatureController::class, 'suivi'])->name('candidatures.suivi');
+    });
 
 
 });

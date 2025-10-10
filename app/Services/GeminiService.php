@@ -91,4 +91,46 @@ class GeminiService
             ];
         }
     }
+
+        /**
+     * Analyse le contenu textuel d’un CV et renvoie une liste de compétences.
+     *
+     * @param string $contenuCV
+     * @return string
+     */
+    public function extraireCompetencesDepuisCV(string $contenuCV): string
+    {
+        try {
+            $prompt = "
+                Analyse ce texte de CV et renvoie uniquement les compétences clés du candidat,
+                séparées par des virgules. 
+                Réponds uniquement en texte brut sans phrase, sans format JSON.
+                
+                Contenu du CV :
+                {$contenuCV}
+            ";
+
+            $response = $this->client->post("models/gemini-2.5-flash:generateContent?key={$this->apiKey}", [
+                'json' => [
+                    'contents' => [
+                        ['parts' => [['text' => $prompt]]]
+                    ]
+                ]
+            ]);
+
+            $body = json_decode($response->getBody()->getContents(), true);
+            $text = $body['candidates'][0]['content']['parts'][0]['text'] ?? '';
+
+            // Nettoyage simple
+            $competences = trim(preg_replace('/[^a-zA-ZÀ-ÿ0-9, ]/', '', $text));
+
+            // Journalisation pour suivi
+            file_put_contents(storage_path('logs/gemini_competences.log'), $competences);
+
+            return $competences ?: 'Non détecté';
+        } catch (Exception $e) {
+            return 'Erreur extraction Gemini : '.$e->getMessage();
+        }
+    }
+
 }

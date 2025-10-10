@@ -62,7 +62,10 @@
                 <a href="{{ route('candidat.dashboard') }}" class="nav-link text-white">Dashboard</a>
             </li>
             <li class="nav-item mb-2">
-                <a href="#" class="nav-link text-white">Annonces ouvertes</a>
+                <a href="{{ route('candidatures.index') }}" class="nav-link text-white">Annonces disponibles</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('candidatures.suivi') }}" class="nav-link text-white">Suivi de candidature</a>
             </li>
             <li class="nav-item mb-2">
                 <a href="#" class="nav-link text-white">Mes candidatures</a>
