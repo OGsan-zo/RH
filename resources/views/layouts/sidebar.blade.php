@@ -63,6 +63,9 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('evaluations.resultats') }}" class="nav-link text-white">Décision de recrutement</a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('contrats.index') }}" class="nav-link text-white">Contrats</a>
+            </li>
         @endif
 
         {{-- ================= CANDIDAT ================= --}}
@@ -82,6 +85,10 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('entretiens.notifications') }}" class="nav-link text-white">Mes entretiens</a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('contrat.details') }}" class="nav-link text-white">Mon contrat</a>
+            </li>
+
         @endif
 
         <hr class="text-white">

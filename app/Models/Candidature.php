@@ -19,4 +19,9 @@ class Candidature extends Model
     {
         return $this->belongsTo(Annonce::class, 'annonce_id');
     }
+    public function contrat()
+    {
+        return $this->hasOne(\App\Models\Contrat::class, 'candidature_id');
+    }
+
 }
