@@ -94,6 +94,7 @@ Route::prefix('RH')->group(function () {
         Route::get('/tests/create', [TestController::class, 'create'])->name('tests.create');
         Route::post('/tests', [TestController::class, 'store'])->name('tests.store');
         Route::get('/tests/view', [TestController::class, 'view'])->name('tests.view');
+        Route::get('/tests/delete/{id}', [TestController::class, 'destroy'])->name('tests.delete');
     });
 
 
