@@ -91,4 +91,26 @@ class TestController extends Controller
 
         return view('rh.tests.view', compact('annonces', 'test', 'annonceId'));
     }
+
+        // Supprimer un test QCM et ses questions/réponses
+    public function destroy($id)
+    {
+        $test = Test::with('questions.reponses')->find($id);
+
+        if (!$test) {
+            return redirect()->back()->with('error', 'Test introuvable.');
+        }
+
+        // Suppression manuelle des réponses et questions
+        foreach ($test->questions as $question) {
+            $question->reponses()->delete();
+        }
+        $test->questions()->delete();
+
+        // Suppression du test
+        $test->delete();
+
+        return redirect()->route('tests.view')->with('success', 'Test supprimé avec succès.');
+    }
+
 }
