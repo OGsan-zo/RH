@@ -60,41 +60,43 @@ class ContratController extends Controller
 
         if ($request->isMethod('post')) {
             $request->validate([
+                'type_contrat' => 'required|in:essai,CDD,CDI',
                 'date_fin' => 'nullable|date',
                 'salaire'  => 'required|numeric|min:0',
             ]);
 
-            // Renouvellement = modification
-            if ($contrat->type_contrat === 'essai') {
+            // Validation métier
+            if ($request->type_contrat === 'essai') {
                 if ($contrat->renouvellement >= 1) {
-                    return back()->with('error', 'Contrat d’essai déjà renouvelé une fois.');
+                    return back()->with('error', 'Le contrat d’essai a déjà été renouvelé une fois.');
                 }
                 if ($request->filled('date_fin')) {
                     $debut = \Carbon\Carbon::parse($contrat->date_debut);
                     $fin   = \Carbon\Carbon::parse($request->date_fin);
-
-                    if ($fin->lessThanOrEqualTo($debut)) {
-                        return back()->with('error', 'La date de fin doit être postérieure à la date de début.');
-                    }
-                    // Durée totale d’essai ≤ 6 mois
                     if ($debut->diffInMonths($fin) > 6) {
                         return back()->with('error', 'Un contrat d’essai ne peut dépasser 6 mois au total.');
                     }
                 }
             }
 
+            // Si on change le type, le renouvellement repasse à zéro
+            $renouvellement = $contrat->type_contrat !== $request->type_contrat
+                ? 0
+                : $contrat->renouvellement + 1;
+
             $contrat->update([
-                'date_fin'       => $request->date_fin, // peut rester null pour CDI
-                'salaire'        => $request->salaire,
-                'renouvellement' => $contrat->renouvellement + 1,
+                'type_contrat' => $request->type_contrat,
+                'date_fin'     => $request->date_fin,
+                'salaire'      => $request->salaire,
+                'renouvellement'=> $renouvellement,
             ]);
 
-            return redirect()->route('contrats.index')->with('success', 'Contrat renouvelé avec succès.');
+            return redirect()->route('contrats.index')
+                ->with('success', 'Contrat renouvelé / modifié avec succès.');
         }
 
         return view('rh.contrats.edit', compact('contrat'));
     }
-
 
     // 4️⃣ Statuts des contrats
     public function status()
