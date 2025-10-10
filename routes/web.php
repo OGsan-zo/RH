@@ -9,6 +9,8 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\TestEnLigneController;
 use App\Http\Controllers\ResultatController;
+use App\Http\Controllers\EntretienController;
+use App\Http\Controllers\EntretienCandidatController;
 
 
 /*
@@ -122,6 +124,22 @@ Route::prefix('RH')->group(function () {
     Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
         Route::get('/resultats/choisir', [ResultatController::class, 'selectResult'])->name('resultats.select');
         Route::get('/resultats/{candidatureId}', [ResultatController::class, 'details'])->name('resultats.details');
+    });
+
+
+
+    // RH
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/entretiens', [EntretienController::class, 'index'])->name('entretiens.index');
+        Route::match(['get','post'], '/entretiens/planifier', [EntretienController::class, 'create'])->name('entretiens.create');
+        Route::get('/entretiens/calendrier', [EntretienController::class, 'calendrier'])->name('entretiens.calendrier');
+        Route::get('/entretiens/delete/{id}', [EntretienController::class, 'delete'])->name('entretiens.delete');
+    });
+
+    // CANDIDAT
+    Route::middleware(['auth.custom', 'role:candidat'])->prefix('RH')->group(function () {
+        Route::get('/entretiens/notifications', [EntretienCandidatController::class, 'index'])->name('entretiens.notifications');
+        Route::get('/entretiens/{id}/{decision}', [EntretienCandidatController::class, 'reponse'])->name('entretiens.reponse');
     });
 
 

@@ -48,6 +48,12 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('resultats.select') }}" class="nav-link text-white">Résultats QCM candidats</a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('entretiens.index') }}" class="nav-link text-white">Gestion des entretiens</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('entretiens.calendrier') }}" class="nav-link text-white">Calendrier des entretiens</a>
+            </li>
 
         @endif
 
@@ -64,6 +70,9 @@
             </li>
             <li class="nav-item mb-2">
                 <a href="{{ route('tests.select') }}" class="nav-link text-white">Passer un test</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('entretiens.notifications') }}" class="nav-link text-white">Mes entretiens</a>
             </li>
         @endif
 
