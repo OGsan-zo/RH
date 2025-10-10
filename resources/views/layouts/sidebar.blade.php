@@ -60,6 +60,9 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('evaluations.resultats') }}" class="nav-link text-white">Résultats globaux</a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('evaluations.resultats') }}" class="nav-link text-white">Décision de recrutement</a>
+            </li>
         @endif
 
         {{-- ================= CANDIDAT ================= --}}
