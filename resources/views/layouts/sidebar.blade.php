@@ -54,7 +54,12 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('entretiens.calendrier') }}" class="nav-link text-white">Calendrier des entretiens</a>
             </li>
-
+            <li class="nav-item mb-2">
+                <a href="{{ route('evaluations.index') }}" class="nav-link text-white">Évaluer les entretiens</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('evaluations.resultats') }}" class="nav-link text-white">Résultats globaux</a>
+            </li>
         @endif
 
         {{-- ================= CANDIDAT ================= --}}
