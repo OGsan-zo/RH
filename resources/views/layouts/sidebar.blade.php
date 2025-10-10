@@ -43,6 +43,12 @@
                 <a href="{{ route('annonces.index') }}" class="nav-link text-white">Annonces</a>
             </li>
             <li class="nav-item mb-2">
+                <a href="{{ route('tests.create') }}" class="nav-link text-white">Tests QCM</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('tests.view') }}" class="nav-link text-white">Voir tests QCM</a>
+            </li>
+            <li class="nav-item mb-2">
                 <a href="#" class="nav-link text-white">Entretiens</a>
             </li>
             <li class="nav-item mb-2">

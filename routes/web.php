@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\TestController;
 
 
 /*
@@ -85,6 +86,16 @@ Route::prefix('RH')->group(function () {
         Route::get('/annonces/{id}/delete', [AnnonceController::class, 'destroy'])->name('annonces.delete');
         Route::get('/annonces/{id}/close', [AnnonceController::class, 'close'])->name('annonces.close');
     });
+
+
+
+
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/tests/create', [TestController::class, 'create'])->name('tests.create');
+        Route::post('/tests', [TestController::class, 'store'])->name('tests.store');
+        Route::get('/tests/view', [TestController::class, 'view'])->name('tests.view');
+    });
+
 
 
 
