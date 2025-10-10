@@ -7,6 +7,8 @@ use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CandidatureController;
+use App\Http\Controllers\TestEnLigneController;
+use App\Http\Controllers\ResultatController;
 
 
 /*
@@ -105,6 +107,21 @@ Route::prefix('RH')->group(function () {
         Route::get('/candidature/{id}', [CandidatureController::class, 'show'])->name('candidatures.show');
         Route::get('/candidature/{id}/postuler', [CandidatureController::class, 'postuler'])->name('candidatures.postuler');
         Route::get('/candidatures/suivi', [CandidatureController::class, 'suivi'])->name('candidatures.suivi');
+    });
+
+
+
+    // CANDIDAT
+    Route::middleware(['auth.custom', 'role:candidat'])->prefix('RH')->group(function () {
+        Route::get('/tests/choisir', [TestEnLigneController::class, 'selectTest'])->name('tests.select');
+        Route::get('/tests/{testId}/passer', [TestEnLigneController::class, 'show'])->name('tests.passer');
+        Route::post('/tests/{testId}/submit', [TestEnLigneController::class, 'submit'])->name('tests.submit');
+    });
+
+    // RH
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/resultats/choisir', [ResultatController::class, 'selectResult'])->name('resultats.select');
+        Route::get('/resultats/{candidatureId}', [ResultatController::class, 'details'])->name('resultats.details');
     });
 
 
