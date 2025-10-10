@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\AnnonceController;
 
 
 /*
@@ -72,6 +73,19 @@ Route::prefix('RH')->group(function () {
         Route::post('/departements/{id}/update', [DepartementController::class, 'update'])->name('departements.update');
         Route::get('/departements/{id}/delete', [DepartementController::class, 'destroy'])->name('departements.delete');
     });
+
+
+
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/annonces', [AnnonceController::class, 'index'])->name('annonces.index');
+        Route::get('/annonces/create', [AnnonceController::class, 'create'])->name('annonces.create');
+        Route::post('/annonces', [AnnonceController::class, 'store'])->name('annonces.store');
+        Route::get('/annonces/{id}/edit', [AnnonceController::class, 'edit'])->name('annonces.edit');
+        Route::post('/annonces/{id}/update', [AnnonceController::class, 'update'])->name('annonces.update');
+        Route::get('/annonces/{id}/delete', [AnnonceController::class, 'destroy'])->name('annonces.delete');
+        Route::get('/annonces/{id}/close', [AnnonceController::class, 'close'])->name('annonces.close');
+    });
+
 
 
 });
