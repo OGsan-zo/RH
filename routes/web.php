@@ -13,6 +13,8 @@ use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\EntretienCandidatController;
 use App\Http\Controllers\EvaluationEntretienController;
 use App\Http\Controllers\DecisionRecrutementController;
+use App\Http\Controllers\ContratController;
+use App\Http\Controllers\ContratCandidatController;
 
 
 /*
@@ -159,6 +161,21 @@ Route::prefix('RH')->group(function () {
         Route::get('/decisions/{candidatureId}/{decision}', [DecisionRecrutementController::class, 'update'])->name('decisions.update');
     });
 
+
+
+    // RH
+    Route::middleware(['auth.custom','role:rh'])->prefix('RH')->group(function () {
+        Route::get('/contrats', [ContratController::class,'index'])->name('contrats.index');
+        Route::match(['get','post'], '/contrats/create', [ContratController::class,'create'])->name('contrats.create');
+        Route::match(['get','post'], '/contrats/{id}/edit', [ContratController::class,'edit'])->name('contrats.edit');
+        Route::get('/contrats/status', [ContratController::class,'status'])->name('contrats.status');
+    });
+
+    // CANDIDAT
+    Route::middleware(['auth.custom','role:candidat'])->prefix('RH')->group(function () {
+        Route::get('/contrat/details', [ContratCandidatController::class,'details'])->name('contrat.details');
+        Route::get('/contrat/{id}/notifier-fin', [ContratCandidatController::class,'notifierFinEssai'])->name('contrat.fin');
+    });
 
 
 });
