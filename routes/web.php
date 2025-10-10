@@ -12,6 +12,7 @@ use App\Http\Controllers\ResultatController;
 use App\Http\Controllers\EntretienController;
 use App\Http\Controllers\EntretienCandidatController;
 use App\Http\Controllers\EvaluationEntretienController;
+use App\Http\Controllers\DecisionRecrutementController;
 
 
 /*
@@ -149,6 +150,13 @@ Route::prefix('RH')->group(function () {
         Route::get('/evaluations/{id}/create', [EvaluationEntretienController::class, 'create'])->name('evaluations.create');
         Route::post('/evaluations/{id}/store', [EvaluationEntretienController::class, 'store'])->name('evaluations.store');
         Route::get('/evaluations/resultats', [EvaluationEntretienController::class, 'resultats'])->name('evaluations.resultats');
+    });
+
+
+
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/decisions/{candidatureId}', [DecisionRecrutementController::class, 'show'])->name('decisions.show');
+        Route::get('/decisions/{candidatureId}/{decision}', [DecisionRecrutementController::class, 'update'])->name('decisions.update');
     });
 
 

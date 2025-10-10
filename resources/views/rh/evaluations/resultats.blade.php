@@ -32,6 +32,7 @@
             <th>Score QCM</th>
             <th>Note entretien</th>
             <th>Score global (%)</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -59,6 +60,12 @@
                 <td>{{ $evaluation ? $evaluation->note : '-' }}/20 ({{ $noteEntretienPourcent ?? '-' }}%)</td>
 
                 <td><strong>{{ $c->score_global ?? '-' }}%</strong></td>
+
+                <td>
+                    <a href="{{ route('decisions.show', $c->id) }}" class="btn btn-outline-primary btn-sm">
+                        Voir profil
+                    </a>
+                </td>
             </tr>
         @endforeach
     </tbody>
