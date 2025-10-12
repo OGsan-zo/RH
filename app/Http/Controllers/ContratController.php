@@ -111,6 +111,10 @@ class ContratController extends Controller
                 'renouvellement' => $renouvellement
             ]);
 
+            if ($request->statut === 'actif') {
+                \App\Http\Controllers\EmployeController::createFromContrat($contrat);
+            }
+
 
             return redirect()->route('contrats.index')->with('success', 'Contrat mis à jour avec succès.');
         }
