@@ -95,8 +95,12 @@ class ContratController extends Controller
             }
 
             // Gestion du compteur de renouvellement
+            if ($contrat->renouvellement >= 1 && $contrat->type_contrat === $request->type_contrat) {
+                return back()->with('error', 'Ce contrat a déjà été renouvelé une fois.');
+            }
+
             $renouvellement = ($contrat->type_contrat === $request->type_contrat)
-                ? $contrat->renouvellement + 1
+                ? min($contrat->renouvellement + 1, 1)
                 : 0;
 
             $contrat->update([
@@ -106,6 +110,7 @@ class ContratController extends Controller
                 'salaire'        => $request->salaire,
                 'renouvellement' => $renouvellement
             ]);
+
 
             return redirect()->route('contrats.index')->with('success', 'Contrat mis à jour avec succès.');
         }

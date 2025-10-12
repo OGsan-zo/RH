@@ -69,6 +69,9 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('contrats.status') }}" class="nav-link text-white">Statut des contrats</a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('affiliations.index') }}" class="nav-link text-white">Affiliations sociales</a>
+            </li>
 
         @endif
 
