@@ -72,6 +72,13 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('affiliations.index') }}" class="nav-link text-white">Affiliations sociales</a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('notifications.index') }}" class="nav-link text-white">Notifications</a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('employes.index') }}" class="nav-link text-white">Employés</a>
+            </li>
+
 
         @endif
 
@@ -95,6 +102,10 @@
             <li class="nav-item mb-2">
                 <a href="{{ route('contrat.details') }}" class="nav-link text-white">Mon contrat</a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('notifications.index') }}" class="nav-link text-white">Mes notifications</a>
+            </li>
+
 
         @endif
 
