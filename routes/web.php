@@ -15,6 +15,7 @@ use App\Http\Controllers\EvaluationEntretienController;
 use App\Http\Controllers\DecisionRecrutementController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\ContratCandidatController;
+use App\Http\Controllers\AffiliationSocialeController;
 
 
 /*
@@ -175,6 +176,13 @@ Route::prefix('RH')->group(function () {
     Route::middleware(['auth.custom','role:candidat'])->prefix('RH')->group(function () {
         Route::get('/contrat/details', [ContratCandidatController::class,'details'])->name('contrat.details');
         Route::get('/contrat/{id}/notifier-fin', [ContratCandidatController::class,'notifierFinEssai'])->name('contrat.fin');
+    });
+
+
+
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/affiliations', [AffiliationSocialeController::class, 'index'])->name('affiliations.index');
+        Route::match(['get','post'], '/affiliations/create', [AffiliationSocialeController::class, 'create'])->name('affiliations.create');
     });
 
 
