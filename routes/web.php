@@ -16,6 +16,8 @@ use App\Http\Controllers\DecisionRecrutementController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\ContratCandidatController;
 use App\Http\Controllers\AffiliationSocialeController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\EmployeController;
 
 
 /*
@@ -183,6 +185,19 @@ Route::prefix('RH')->group(function () {
     Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
         Route::get('/affiliations', [AffiliationSocialeController::class, 'index'])->name('affiliations.index');
         Route::match(['get','post'], '/affiliations/create', [AffiliationSocialeController::class, 'create'])->name('affiliations.create');
+    });
+
+
+
+    // Notifications
+    Route::middleware(['auth.custom'])->prefix('RH')->group(function () {
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::get('/notifications/{id}/read', [NotificationController::class, 'read'])->name('notifications.read');
+    });
+
+    // Employés (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/employes', [EmployeController::class, 'index'])->name('employes.index');
     });
 
 
