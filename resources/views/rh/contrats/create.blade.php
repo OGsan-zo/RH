@@ -39,6 +39,14 @@
     <label>Date fin :</label>
     <input type="date" name="date_fin" class="form-control">
 </div>
+<div class="mb-3">
+    <select name="statut" class="form-select">
+        @foreach(\App\Models\Contrat::STATUTS as $statut)
+            <option value="{{ $statut }}">{{ ucfirst(str_replace('_',' ', $statut)) }}</option>
+        @endforeach
+    </select>
+</div>
+
 <button type="submit" class="btn btn-success">Créer</button>
 <a href="{{ route('contrats.index') }}" class="btn btn-secondary">Annuler</a>
 </form>

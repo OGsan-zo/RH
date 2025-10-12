@@ -12,6 +12,16 @@ class Contrat extends Model
     ];
     public $timestamps = false;
 
+    const STATUTS = [
+        'actif',
+        'renouvelé',
+        'fin_essai',
+        'termine',
+        'expiré',
+        'clos',
+        'suspendu'
+    ];
+
     public function candidature()
     {
         return $this->belongsTo(Candidature::class, 'candidature_id');
