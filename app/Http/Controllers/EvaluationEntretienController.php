@@ -7,6 +7,8 @@ use App\Models\EvaluationEntretien;
 use App\Models\Entretien;
 use App\Models\ResultatTest;
 use App\Models\Candidature;
+use App\Services\NotificationService;
+
 
 class EvaluationEntretienController extends Controller
 {
@@ -43,6 +45,30 @@ class EvaluationEntretienController extends Controller
             'note' => $request->note,
             'remarques' => $request->remarques
         ]);
+
+
+        // 🔔 Notification au candidat
+        NotificationService::send(
+            'evaluation',
+            'candidat',
+            $entretien->candidature->candidat_id,
+            [
+                'message' => "Votre entretien pour le poste '{$entretien->candidature->annonce->titre}' a été évalué.",
+                'note' => $request->note,
+                'remarques' => $request->remarques
+            ]
+        );
+
+        // 🔔 Notification RH (optionnelle, résumé)
+        NotificationService::send(
+            'evaluation',
+            'rh',
+            0,
+            [
+                'message' => "Évaluation enregistrée pour le candidat {$entretien->candidature->candidat->nom} ({$request->note}/20)."
+            ]
+        );
+
 
         // Score test
         $scoreTest = \App\Models\ResultatTest::where('candidature_id', $entretien->candidature_id)->value('score') ?? 0;
