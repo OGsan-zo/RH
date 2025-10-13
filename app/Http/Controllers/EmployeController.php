@@ -35,11 +35,26 @@ class EmployeController extends Controller
             'statut' => 'actif'
         ]);
 
+        // Après création de l'employé
         NotificationService::send(
-            'contrat',
-            'Candidat',
+            'employe',
+            'candidat',
             $candidatId,
-            ['message' => 'Votre contrat est désormais actif. Vous êtes enregistré comme employé.']
+            [
+                'message' => "Félicitations ! Vous êtes désormais enregistré comme employé actif.",
+                'matricule' => $matricule
+            ]
         );
+
+        // 🔔 Notification RH
+        NotificationService::send(
+            'employe',
+            'rh',
+            0,
+            [
+                'message' => "Le candidat {$contrat->candidature->candidat->nom} est maintenant un employé actif ({$matricule})."
+            ]
+        );
+
     }
 }
