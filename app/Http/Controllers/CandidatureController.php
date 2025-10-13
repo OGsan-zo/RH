@@ -7,6 +7,8 @@ use App\Models\Annonce;
 use App\Models\Candidat;
 use App\Models\Candidature;
 use App\Services\CvParserService;
+use App\Services\NotificationService;
+
 
 class CandidatureController extends Controller
 {
@@ -59,11 +61,31 @@ class CandidatureController extends Controller
         }
 
         // Création de la candidature
-        Candidature::create([
+        $candidature = Candidature::create([
             'candidat_id' => $candidat->id,
             'annonce_id' => $id,
             'statut' => 'en_attente'
         ]);
+
+        // 🔔 Notifications automatiques
+        NotificationService::send(
+            'candidature',
+            'rh',
+            0,
+            [
+                'message' => "Nouvelle candidature pour le poste '{$candidature->annonce->titre}'.",
+                'candidat' => "{$candidature->candidat->nom} {$candidature->candidat->prenom}"
+            ]
+        );
+
+        NotificationService::send(
+            'candidature',
+            'candidat',
+            $candidature->candidat_id,
+            [
+                'message' => "Votre candidature pour '{$candidature->annonce->titre}' a été enregistrée avec succès."
+            ]
+        );
 
         return redirect()->route('candidatures.suivi')
                          ->with('success', 'Votre candidature a été soumise avec succès.');
