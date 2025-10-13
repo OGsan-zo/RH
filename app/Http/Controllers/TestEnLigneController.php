@@ -11,6 +11,7 @@ use App\Models\ResultatTest;
 use App\Models\Candidature;
 use App\Models\CandidatReponse;
 use Illuminate\Support\Facades\DB;
+use App\Services\NotificationService;   
 
 class TestEnLigneController extends Controller
 {
@@ -41,7 +42,7 @@ class TestEnLigneController extends Controller
                 'candidature_id' => $candidature->id,
                 'test_id' => $test->id,
                 'score' => 0
-            ]);
+            ]);            
 
             foreach ($test->questions as $question) {
                 $reponseChoisie = $request->input('question_'.$question->id);
@@ -69,6 +70,26 @@ class TestEnLigneController extends Controller
             ]);
 
             DB::commit();
+
+            NotificationService::send(
+                'test',
+                'rh',
+                0,
+                [
+                    'message' => "Le candidat {$candidature->candidat->nom} {$candidature->candidat->prenom} a terminé le test pour '{$test->titre}'.",
+                    'score' => $pourcentage
+                ]
+            );
+
+            NotificationService::send(
+                'test',
+                'candidat',
+                $candidature->candidat_id,
+                [
+                    'message' => "Votre test pour '{$test->titre}' est terminé avec un score de {$pourcentage} %."
+                ]
+            );
+
 
             return view('candidat.qcm.resultat', compact('test', 'pourcentage'));
         } catch (\Exception $e) {

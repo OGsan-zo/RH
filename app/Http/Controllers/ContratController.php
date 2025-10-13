@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Contrat;
 use App\Models\Candidature;
 use Carbon\Carbon;
+use App\Services\NotificationService;
+
 
 class ContratController extends Controller
 {
@@ -45,7 +47,7 @@ class ContratController extends Controller
                 }
             }
 
-            Contrat::create([
+            $contrat = Contrat::create([
                 'candidature_id' => $request->candidature_id,
                 'type_contrat'   => $request->type_contrat,
                 'statut'         => $request->statut,
@@ -54,6 +56,29 @@ class ContratController extends Controller
                 'salaire'        => $request->salaire,
                 'renouvellement' => 0
             ]);
+
+            // === Après Contrat::create([...]); ===
+            NotificationService::send(
+                'contrat',
+                'candidat',
+                $contrat->candidature->candidat_id,
+                [
+                    'message' => "Votre contrat de type {$contrat->type_contrat} est désormais actif.",
+                    'salaire' => $contrat->salaire,
+                    'date_debut' => $contrat->date_debut
+                ]
+            );
+
+            // === Après mise à jour ou renouvellement ===
+            NotificationService::send(
+                'contrat',
+                'candidat',
+                $contrat->candidature->candidat_id,
+                [
+                    'message' => "Votre contrat a été mis à jour ({$contrat->type_contrat}, statut {$contrat->statut})."
+                ]
+            );
+
 
             return redirect()->route('contrats.index')->with('success', 'Contrat créé avec succès.');
         }

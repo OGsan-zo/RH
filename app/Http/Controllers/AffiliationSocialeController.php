@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AffiliationSociale;
 use App\Models\Contrat;
+use App\Services\NotificationService;
+
 
 class AffiliationSocialeController extends Controller
 {
@@ -35,13 +37,34 @@ class AffiliationSocialeController extends Controller
 
             $cotisation = round(($salaire * $taux) / 100, 2);
 
-            AffiliationSociale::create([
+            $affiliation = AffiliationSociale::create([
                 'contrat_id' => $contrat->id,
                 'organisme' => $request->organisme,
                 'numero_affiliation' => $request->numero_affiliation,
                 'taux_cotisation' => $taux,
                 'date_affiliation' => now()
             ]);
+
+            // 🔔 Notification au candidat
+            NotificationService::send(
+                'affiliation',
+                'candidat',
+                $contrat->candidature->candidat_id,
+                [
+                    'message' => "Votre affiliation à {$affiliation->organisme} a été enregistrée avec succès.",
+                    'numero' => $affiliation->numero_affiliation
+                ]
+            );
+
+            // 🔔 Notification RH (optionnelle)
+            NotificationService::send(
+                'affiliation',
+                'rh',
+                0,
+                [
+                    'message' => "Affiliation de {$contrat->candidature->candidat->nom} enregistrée pour {$affiliation->organisme}."
+                ]
+            );
 
             return redirect()->route('affiliations.index')
                 ->with('success', "Affiliation enregistrée ({$request->organisme}) — Cotisation: {$cotisation} Ar");

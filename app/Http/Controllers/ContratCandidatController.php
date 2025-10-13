@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Contrat;
 use App\Models\Candidat;
 use Illuminate\Support\Facades\Log;
+use App\Services\NotificationService;
+
 
 class ContratCandidatController extends Controller
 {
@@ -26,6 +28,16 @@ class ContratCandidatController extends Controller
     {
         $contrat = Contrat::findOrFail($id);
         $contrat->update(['statut' => 'fin_essai']);
+
+        NotificationService::send(
+            'contrat',
+            'rh',
+            0, // inbox RH globale
+            [
+                'message' => "Le candidat {$contrat->candidature->candidat->nom} {$contrat->candidature->candidat->prenom} a signalé la fin de son contrat d’essai.",
+                'contrat_id' => $contrat->id
+            ]
+        );
 
         \Log::info("Notification RH : le candidat {$contrat->candidature->candidat->email} a signalé la fin de son contrat d’essai.");
         return back()->with('success', 'Notification envoyée au service RH.');

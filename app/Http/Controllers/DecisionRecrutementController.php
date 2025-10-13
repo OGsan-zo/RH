@@ -7,6 +7,7 @@ use App\Models\EvaluationEntretien;
 use App\Models\ResultatTest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Services\NotificationService;
 
 class DecisionRecrutementController extends Controller
 {
@@ -27,13 +28,34 @@ class DecisionRecrutementController extends Controller
     {
         $candidature = Candidature::findOrFail($candidatureId);
 
+
         if ($decision === 'accepter') {
             $candidature->update(['statut' => 'retenu']);
-            $message = 'Candidat accepté. Passera à l’étape du contrat.';
+
+            // 🔔 Notification candidat retenu
+            NotificationService::send(
+                'decision',
+                'candidat',
+                $candidature->candidat_id,
+                [
+                    'message' => "Félicitations ! Votre candidature pour le poste '{$candidature->annonce->titre}' a été retenue."
+                ]
+            );
         } elseif ($decision === 'refuser') {
             $candidature->update(['statut' => 'refuse']);
-            $message = 'Candidat refusé.';
-        } else {
+
+            // 🔔 Notification candidat refusé
+            NotificationService::send(
+                'decision',
+                'candidat',
+                $candidature->candidat_id,
+                [
+                    'message' => "Merci pour votre intérêt. Votre candidature pour '{$candidature->annonce->titre}' n’a pas été retenue."
+                ]
+            );
+        }
+
+        else {
             abort(400, 'Décision invalide.');
         }
 

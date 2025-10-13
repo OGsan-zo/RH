@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Candidature;
 use App\Models\Entretien;
+use App\Services\NotificationService;
 use App\Models\User;
 
 class EntretienController extends Controller
@@ -35,7 +36,7 @@ class EntretienController extends Controller
                 'lieu' => 'required|string|max:150',
             ]);
 
-            Entretien::create([
+            $entretien = Entretien::create([
                 'candidature_id' => $request->candidature_id,
                 'date_entretien' => $request->date_entretien,
                 'duree' => $request->duree,
@@ -43,6 +44,20 @@ class EntretienController extends Controller
                 'rh_id' => session('user_id'),
                 'statut' => 'planifie'
             ]);
+
+            $cand = $entretien->candidature->candidat;
+
+            // 🔔 Notification automatique
+            NotificationService::send(
+                'entretien',
+                'candidat',
+                $cand->id,
+                [
+                    'message' => "Un entretien est prévu le {$entretien->date_entretien} pour le poste '{$entretien->candidature->annonce->titre}'.",
+                    'lieu' => $entretien->lieu
+                ]
+            );
+      
 
             return redirect()->route('entretiens.index')->with('success', 'Entretien planifié avec succès.');
         }
