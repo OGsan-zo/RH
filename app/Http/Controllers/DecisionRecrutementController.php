@@ -27,6 +27,7 @@ class DecisionRecrutementController extends Controller
     public function update($candidatureId, $decision)
     {
         $candidature = Candidature::findOrFail($candidatureId);
+        $message = '';
 
 
         if ($decision === 'accepter') {
@@ -41,6 +42,8 @@ class DecisionRecrutementController extends Controller
                     'message' => "Félicitations ! Votre candidature pour le poste '{$candidature->annonce->titre}' a été retenue."
                 ]
             );
+            $message = "Félicitations ! Votre candidature pour le poste '{$candidature->annonce->titre}' a été retenue.";
+                
         } elseif ($decision === 'refuser') {
             $candidature->update(['statut' => 'refuse']);
 
@@ -53,6 +56,7 @@ class DecisionRecrutementController extends Controller
                     'message' => "Merci pour votre intérêt. Votre candidature pour '{$candidature->annonce->titre}' n’a pas été retenue."
                 ]
             );
+            $message = "Merci pour votre intérêt. Votre candidature pour '{$candidature->annonce->titre}' n’a pas été retenue.";    
         }
 
         else {
