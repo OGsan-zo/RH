@@ -27,14 +27,28 @@
 
         <div class="mb-3">
           <label for="candidature_id">Candidat :</label>
-          <select name="candidature_id" class="form-select" required>
-              <option value="">-- Sélectionner un candidat éligible (≥ {{ $seuil }}) --</option>
-              @foreach($candidaturesEligibles as $c)
-                  <option value="{{ $c->id }}">
-                      {{ $c->candidat->nom }} {{ $c->candidat->prenom }} — {{ $c->annonce->titre }}
-                  </option>
+        
+          <p>Seuil actuel : <strong>{{ $hasSeuil ? number_format($seuil,2) : 'N/A' }}</strong></p>
+
+          @unless($hasSeuil)
+            <div class="alert alert-info mb-3">
+              Aucun score QCM disponible. Vous pouvez consulter le calendrier, mais la liste des candidats éligibles est vide.
+            </div>
+          @endunless
+
+          @if($hasSeuil)
+            <select id="candidature_id" class="form-select">
+              @foreach($eligibles as $c)
+                <option value="{{ $c->id }}">{{ $c->candidat->nom }} {{ $c->candidat->prenom }} — {{ $c->annonce->titre }}</option>
               @endforeach
-          </select>
+            </select>
+          @else
+            <select id="candidature_id" class="form-select" disabled>
+              <option>Aucun candidat éligible</option>
+            </select>
+          @endif
+
+        
         </div>
 
 
