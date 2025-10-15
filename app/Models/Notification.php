@@ -31,4 +31,16 @@ class Notification extends Model
     {
         $this->update(['read_at' => now()]);
     }
+
+    public function isForCurrentUser($userRole, $userId)
+    {
+        if ($this->notifiable_type === $userRole) {
+            if ($userRole === 'rh') {
+                return $this->notifiable_id == 0 || $this->notifiable_id == $userId;
+            }
+            return $this->notifiable_id == $userId;
+        }
+        return false;
+    }
+
 }

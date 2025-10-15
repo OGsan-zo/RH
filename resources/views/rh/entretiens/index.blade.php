@@ -8,14 +8,27 @@
 <div class="card p-3 shadow-sm mb-3">
     <h5>Candidats éligibles (note ≥ {{ $seuil }})</h5>
     <form action="{{ route('entretiens.create') }}" method="get">
-        <select name="candidature_id" class="form-select" required>
-            <option value="">-- Sélectionner un candidat --</option>
-            @foreach($candidatsEligibles as $c)
-                <option value="{{ $c->id }}">
-                    {{ $c->candidat->nom }} {{ $c->candidat->prenom }} — {{ $c->annonce->titre }}
-                </option>
-            @endforeach
+        
+        <p>Seuil actuel : <strong>{{ $hasSeuil ? number_format($seuil,2) : 'N/A' }}</strong></p>
+
+        @unless($hasSeuil)
+        <div class="alert alert-warning">
+            Aucun résultat QCM pour le moment. Le filtrage par seuil est inactif.
+        </div>
+        @endunless
+
+        @if($hasSeuil)
+        {{-- formulaire / select des candidats éligibles --}}
+        <select name="candidature_id" class="form-select">
+            @forelse($eligibles as $c)
+            <option value="{{ $c->id }}">{{ $c->candidat->nom }} {{ $c->candidat->prenom }} — {{ $c->annonce->titre }}</option>
+            @empty
+            <option disabled>Aucun candidat au-dessus du seuil</option>
+            @endforelse
         </select>
+        @endif
+
+
         <button type="submit" class="btn btn-success mt-2">Planifier un entretien</button>
     </form>
 </div>
