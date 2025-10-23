@@ -73,8 +73,14 @@ class EvaluationEntretienController extends Controller
         // Score test
         $scoreTest = \App\Models\ResultatTest::where('candidature_id', $entretien->candidature_id)->value('score') ?? 0;
 
-        // Calcul final : moyenne entre test et entretien (pondération simple)
-        $scoreFinal = round(($scoreTest + (($request->note / 20) * 100)) / 2, 2);
+        // Note CV (générée par IA lors de la postulation)
+        $noteCv = $entretien->candidature->note_cv ?? 0;
+
+        // Note entretien (convertie sur 100)
+        $noteEntretien = ($request->note / 20) * 100;
+
+        // Calcul final : moyenne des 3 notes (CV + Test + Entretien)
+        $scoreFinal = round(($noteCv + $scoreTest + $noteEntretien) / 3, 2);
 
         // Mise à jour de la candidature
         $entretien->candidature->update([
