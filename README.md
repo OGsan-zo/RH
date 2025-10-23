@@ -214,7 +214,6 @@ Projet académique - ITU Madagascar S5
 
 ## 👥 Auteurs
 
-- **Équipe RH** - Développement et conception
 - **ITU S5** - Encadrement académique
 
 ## 🙏 Remerciements
@@ -227,7 +226,7 @@ Projet académique - ITU Madagascar S5
 ## 📞 Contact
 
 Pour toute question ou suggestion :
-- **Email** : contact@rh-itu.mg
+- **Email** : zoheriniaina@gmail.com
 - **GitHub Issues** : [Créer une issue](https://github.com/votre-username/RH/issues)
 
 ---
