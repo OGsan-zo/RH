@@ -60,73 +60,38 @@ Application web complète de gestion des ressources humaines avec analyse IA des
 - PHP >= 8.2
 - PostgreSQL >= 15
 - Composer >= 2.0
-- Node.js >= 18 (optionnel, pour assets)
 - Extension PHP : pdo_pgsql, mbstring, openssl, fileinfo
 
-## 🚀 Installation
+## 🚀 Installation Rapide
 
-### 1. Cloner le projet
 ```bash
+# 1. Cloner le projet
 git clone https://github.com/votre-username/RH.git
 cd RH
-```
 
-### 2. Installer les dépendances
-```bash
+# 2. Installer les dépendances
 composer install
-```
 
-### 3. Configuration de l'environnement
-```bash
-# Copier le fichier .env
+# 3. Configuration
 cp .env.example .env
-
-# Générer la clé d'application
 php artisan key:generate
-```
 
-### 4. Configurer la base de données
-Éditer le fichier `.env` :
-```env
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=rh
-DB_USERNAME=postgres
-DB_PASSWORD=votre_mot_de_passe
-
-# API Gemini pour l'analyse IA
-GEMINI_API_KEY=votre_cle_api_gemini
-```
-
-### 5. Créer la base de données
-```bash
-# Créer la base de données PostgreSQL
+# 4. Créer la base de données
 psql -U postgres -c "CREATE DATABASE rh;"
-
-# Exécuter les scripts SQL
 psql -U postgres -d rh -f sql/1-TABLE.sql
 psql -U postgres -d rh -f sql/2-VIEW.sql
 psql -U postgres -d rh -f sql/data/3-INSERT.sql
 psql -U postgres -d rh -f sql/data/4-ADD-NOTE-CV.sql
-```
 
-### 6. Créer le lien symbolique pour le storage
-```bash
+# 5. Configuration finale
 php artisan storage:link
-```
-
-### 7. Configurer les permissions
-```bash
 chmod -R 775 storage bootstrap/cache
-```
 
-### 8. Lancer le serveur
-```bash
+# 6. Lancer le serveur
 php artisan serve
 ```
 
-L'application sera accessible sur : `http://localhost:8000`
+📖 **[Guide d'Installation Complet](docs/INSTALLATION.md)** - Instructions détaillées, déploiement production, optimisations
 
 ## 👤 Comptes de Test
 
@@ -162,55 +127,27 @@ RH/
 │   └── data/                   # Scripts d'insertion
 ├── storage/
 │   └── app/public/cv/         # CVs uploadés
-├── docs-windsurf/             # Documentation développement
+├── docs/                      # Documentation complète
 └── public/                     # Assets publics
 ```
 
 ## 🎯 Utilisation
 
-### Pour le RH
+### Démarrage Rapide
 
-1. **Publier une annonce**
-   - Menu : Annonces → Créer une annonce
-   - Remplir les critères (compétences, niveau, salaire)
+**Pour le RH** :
+1. Publier une annonce avec critères détaillés
+2. Consulter les candidatures avec filtres avancés
+3. Organiser tests QCM et entretiens
+4. Prendre des décisions basées sur 3 notes (CV + Test + Entretien)
 
-2. **Consulter les candidatures**
-   - Menu : Tri des Candidats
-   - Sélectionner un poste
-   - Appliquer des filtres (nom, âge, compétences)
+**Pour le Candidat** :
+1. S'inscrire et uploader son CV
+2. Postuler aux annonces (analyse IA automatique)
+3. Passer les tests assignés
+4. Suivre sa candidature en temps réel
 
-3. **Organiser un test**
-   - Menu : Tests → Créer un test
-   - Ajouter des questions QCM
-   - Assigner aux candidats
-
-4. **Planifier un entretien**
-   - Menu : Entretiens → Planifier
-   - Choisir date, heure, lieu
-
-5. **Prendre une décision**
-   - Consulter le profil complet
-   - Voir les 3 notes (CV, Test, Entretien)
-   - Accepter ou refuser
-
-### Pour le Candidat
-
-1. **S'inscrire**
-   - Remplir le formulaire
-   - Uploader le CV (PDF/DOC)
-
-2. **Postuler**
-   - Consulter les annonces
-   - Cliquer sur "Postuler"
-   - Le CV est analysé automatiquement
-
-3. **Passer le test**
-   - Recevoir la notification
-   - Répondre aux questions
-
-4. **Suivre sa candidature**
-   - Tableau de bord
-   - Notifications en temps réel
+📖 **[Guide d'Utilisation Complet](docs/USAGE.md)** - Tutoriels détaillés par rôle, conseils et bonnes pratiques
 
 ## 🔍 Fonctionnalités Avancées
 
@@ -240,34 +177,25 @@ Score Global = (Note CV + Score Test + Note Entretien) / 3
 
 ## 🐛 Dépannage
 
-### Erreur "SQLSTATE[08006]"
-```bash
-# Vérifier que PostgreSQL est démarré
-sudo systemctl status postgresql
-sudo systemctl start postgresql
-```
+### Problèmes Courants
 
-### Erreur "Class 'GuzzleHttp\Client' not found"
-```bash
-composer require guzzlehttp/guzzle
-```
+- **PostgreSQL ne démarre pas** → `sudo systemctl start postgresql`
+- **Erreur GuzzleHTTP** → `composer require guzzlehttp/guzzle`
+- **CV non accessible** → `php artisan storage:link`
+- **Erreur UTF-8** → `psql -U postgres -d rh -f sql/data/5-FIX-COMPETENCES.sql`
 
-### CV non accessible
-```bash
-# Recréer le lien symbolique
-php artisan storage:link
-```
-
-### Erreur UTF-8 avec les CV
-Les CV sont automatiquement nettoyés. Si le problème persiste :
-```bash
-psql -U postgres -d rh -f sql/data/5-FIX-COMPETENCES.sql
-```
+🔧 **[Guide de Dépannage Complet](docs/TROUBLESHOOTING.md)** - Solutions détaillées pour tous les problèmes
 
 ## 📚 Documentation
 
-- **[Guide de la fonctionnalité Tri CV](docs-windsurf/FEATURE_TRI_CV.md)** - Documentation complète
-- **[Guide de commit](docs-windsurf/COMMIT_GUIDE.md)** - Convention de commits
+### Guides Utilisateurs
+- 📖 **[Guide d'Utilisation](docs/USAGE.md)** - Tutoriels par rôle (RH, Candidat)
+- 📦 **[Guide d'Installation](docs/INSTALLATION.md)** - Installation complète et déploiement
+- 🔧 **[Guide de Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
+
+### Documentation Développeurs
+- ✨ **[Fonctionnalité Tri CV](docs/FEATURE_TRI_CV.md)** - Architecture et implémentation
+- 📝 **[Convention de Commits](docs/COMMIT_GUIDE.md)** - Standards Git
 
 ## 🤝 Contribution
 
@@ -278,7 +206,7 @@ Ce projet est académique. Les contributions sont les bienvenues pour :
 - Améliorer la documentation
 
 ### Convention de commits
-Suivre le guide dans `docs-windsurf/COMMIT_GUIDE.md`
+Suivre le guide dans [docs/COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md)
 
 ## 📝 Licence
 
