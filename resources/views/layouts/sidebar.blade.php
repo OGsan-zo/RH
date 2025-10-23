@@ -64,6 +64,9 @@
                 <a href="{{ route('evaluations.resultats') }}" class="nav-link text-white">Décision de recrutement</a>
             </li>
             <li class="nav-item mb-2">
+                <a href="{{ route('tri.index') }}" class="nav-link text-white">📊 Tri des Candidats</a>
+            </li>
+            <li class="nav-item mb-2">
                 <a href="{{ route('contrats.index') }}" class="nav-link text-white">Contrats</a>
             </li>
             <li class="nav-item mb-2">

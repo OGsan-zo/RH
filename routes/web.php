@@ -18,6 +18,7 @@ use App\Http\Controllers\ContratCandidatController;
 use App\Http\Controllers\AffiliationSocialeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EmployeController;
+use App\Http\Controllers\TriCandidatController;
 
 
 /*
@@ -198,6 +199,12 @@ Route::prefix('RH')->group(function () {
     // Employés (RH)
     Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
         Route::get('/employes', [EmployeController::class, 'index'])->name('employes.index');
+    });
+
+    // Tri des candidats par poste (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/tri-candidats', [TriCandidatController::class, 'index'])->name('tri.index');
+        Route::get('/tri-candidats/{annonceId}', [TriCandidatController::class, 'show'])->name('tri.show');
     });
 
 

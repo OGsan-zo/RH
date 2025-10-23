@@ -8,6 +8,7 @@ use App\Models\Candidat;
 use App\Models\Candidature;
 use App\Services\CvParserService;
 use App\Services\NotificationService;
+use App\Services\GeminiService;
 
 
 class CandidatureController extends Controller
@@ -52,19 +53,48 @@ class CandidatureController extends Controller
             return redirect()->back()->with('error', 'Vous avez déjà une candidature active.');
         }
 
-        // Extraction de compétences à partir du CV
+        // Récupération de l'annonce
+        $annonce = Annonce::findOrFail($id);
+
+        // Extraction de compétences et évaluation du CV
         $competences = '';
-        if ($candidat->cv_path && file_exists(public_path($candidat->cv_path))) {
-            $contenu = file_get_contents(public_path($candidat->cv_path));
-            $competences = app(\App\Services\GeminiService::class)->extraireCompetencesDepuisCV($contenu);
-            $candidat->update(['competences' => $competences]);
+        $noteCv = null;
+        
+        // Le CV est stocké dans storage/app/public/
+        $cvFullPath = storage_path('app/public/' . $candidat->cv_path);
+        
+        if ($candidat->cv_path && file_exists($cvFullPath)) {
+            // Extraire le texte du PDF/DOC avec le parser
+            $contenuTexte = $this->parser->extraireTexteDepuisFichier($cvFullPath);
+            
+            // Si l'extraction a réussi
+            if (!empty($contenuTexte)) {
+                $geminiService = app(GeminiService::class);
+                
+                // Extraction des compétences
+                $competences = $geminiService->extraireCompetencesDepuisCV($contenuTexte);
+                $candidat->update(['competences' => $competences]);
+                
+                // Évaluation de l'adéquation CV/Poste par IA
+                $noteCv = $geminiService->evaluerCVPourPoste(
+                    $contenuTexte,
+                    $annonce->competences_requises ?? '',
+                    $annonce->niveau_requis ?? '',
+                    $annonce->description ?? ''
+                );
+            } else {
+                // Si l'extraction échoue, mettre une note par défaut
+                \Log::warning("Impossible d'extraire le texte du CV: " . $cvFullPath);
+                $noteCv = 50.0; // Note neutre
+            }
         }
 
-        // Création de la candidature
+        // Création de la candidature avec la note CV
         $candidature = Candidature::create([
             'candidat_id' => $candidat->id,
             'annonce_id' => $id,
-            'statut' => 'en_attente'
+            'statut' => 'en_attente',
+            'note_cv' => $noteCv
         ]);
 
         // 🔔 Notifications automatiques
