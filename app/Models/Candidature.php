@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Candidature extends Model
 {
     protected $table = 'candidatures';
-    protected $fillable = ['candidat_id', 'annonce_id', 'date_candidature', 'statut', 'score_global'];
+    protected $fillable = ['candidat_id', 'annonce_id', 'date_candidature', 'statut', 'score_global', 'note_cv'];
     public $timestamps = false;
 
     public function candidat()
