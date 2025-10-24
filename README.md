@@ -196,3 +196,14 @@ Score Global = (Note CV + Score Test + Note Entretien) / 3
 ### Documentation Développeurs
 - ✨ **[Fonctionnalité Tri CV](docs/FEATURE_TRI_CV.md)** - Architecture et implémentation
 - 📝 **[Convention de Commits](docs/COMMIT_GUIDE.md)** - Standards Git
+
+## 🤝 Contribution
+
+Ce projet est académique. Les contributions sont les bienvenues pour :
+- Améliorer les fonctionnalités existantes
+- Corriger des bugs
+- Ajouter de nouvelles fonctionnalités
+- Améliorer la documentation
+
+### Convention de commits
+Suivre le guide dans [docs/COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md)
