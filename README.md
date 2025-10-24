@@ -105,3 +105,28 @@ php artisan serve
 
 ### Candidat
 - **Inscription** : `/RH/register`
+
+## 📁 Structure du Projet
+
+```
+RH/
+├── app/
+│   ├── Http/Controllers/      # Contrôleurs
+│   ├── Models/                 # Modèles Eloquent
+│   └── Services/               # Services (Gemini, Parser CV)
+├── resources/
+│   └── views/                  # Vues Blade
+│       ├── admin/              # Interface Admin
+│       ├── rh/                 # Interface RH
+│       └── candidat/           # Interface Candidat
+├── routes/
+│   └── web.php                 # Routes de l'application
+├── sql/
+│   ├── 1-TABLE.sql            # Création des tables
+│   ├── 2-VIEW.sql             # Vues PostgreSQL
+│   └── data/                   # Scripts d'insertion
+├── storage/
+│   └── app/public/cv/         # CVs uploadés
+├── docs/                      # Documentation complète
+└── public/                     # Assets publics
+```
