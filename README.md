@@ -130,3 +130,21 @@ RH/
 ├── docs/                      # Documentation complète
 └── public/                     # Assets publics
 ```
+
+## 🎯 Utilisation
+
+### Démarrage Rapide
+
+**Pour le RH** :
+1. Publier une annonce avec critères détaillés
+2. Consulter les candidatures avec filtres avancés
+3. Organiser tests QCM et entretiens
+4. Prendre des décisions basées sur 3 notes (CV + Test + Entretien)
+
+**Pour le Candidat** :
+1. S'inscrire et uploader son CV
+2. Postuler aux annonces (analyse IA automatique)
+3. Passer les tests assignés
+4. Suivre sa candidature en temps réel
+
+📖 **[Guide d'Utilisation Complet](docs/USAGE.md)** - Tutoriels détaillés par rôle, conseils et bonnes pratiques
