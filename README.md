@@ -174,3 +174,25 @@ Score Global = (Note CV + Score Test + Note Entretien) / 3
 - **Endpoint** : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
 - **Usage** : Analyse des CV et extraction de compétences
 - **Documentation** : [Gemini API Docs](https://ai.google.dev/docs)
+
+## 🐛 Dépannage
+
+### Problèmes Courants
+
+- **PostgreSQL ne démarre pas** → `sudo systemctl start postgresql`
+- **Erreur GuzzleHTTP** → `composer require guzzlehttp/guzzle`
+- **CV non accessible** → `php artisan storage:link`
+- **Erreur UTF-8** → `psql -U postgres -d rh -f sql/data/5-FIX-COMPETENCES.sql`
+
+🔧 **[Guide de Dépannage Complet](docs/TROUBLESHOOTING.md)** - Solutions détaillées pour tous les problèmes
+
+## 📚 Documentation
+
+### Guides Utilisateurs
+- 📖 **[Guide d'Utilisation](docs/USAGE.md)** - Tutoriels par rôle (RH, Candidat)
+- 📦 **[Guide d'Installation](docs/INSTALLATION.md)** - Installation complète et déploiement
+- 🔧 **[Guide de Dépannage](docs/TROUBLESHOOTING.md)** - Solutions aux problèmes courants
+
+### Documentation Développeurs
+- ✨ **[Fonctionnalité Tri CV](docs/FEATURE_TRI_CV.md)** - Architecture et implémentation
+- 📝 **[Convention de Commits](docs/COMMIT_GUIDE.md)** - Standards Git
