@@ -92,3 +92,16 @@ php artisan serve
 ```
 
 📖 **[Guide d'Installation Complet](docs/INSTALLATION.md)** - Instructions détaillées, déploiement production, optimisations
+
+## 👤 Comptes de Test
+
+### Administrateur
+- **Email** : `admin@rh.mg`
+- **Mot de passe** : `admin123`
+
+### RH
+- **Email** : `rh@rh.mg`
+- **Mot de passe** : `rh123`
+
+### Candidat
+- **Inscription** : `/RH/register`
