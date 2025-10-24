@@ -64,11 +64,6 @@ Application web complète de gestion des ressources humaines avec analyse IA des
 
 ## 🚀 Installation Rapide
 
-### Prérequis
-- PHP 8.2+ | PostgreSQL 15+ | Composer 2.0+
-
-### 🚀 Installation Express (5 minutes)
-
 ```bash
 # 1. Cloner le projet
 git clone https://github.com/votre-username/RH.git
@@ -77,12 +72,23 @@ cd RH
 # 2. Installer les dépendances
 composer install
 
-# 3. Configuration rapide
+# 3. Configuration
 cp .env.example .env
 php artisan key:generate
 
-# 4. Base de données (assurez-vous que PostgreSQL tourne)
-./scripts/setup-database.sh
+# 4. Créer la base de données
+psql -U postgres -c "CREATE DATABASE rh;"
+psql -U postgres -d rh -f sql/1-TABLE.sql
+psql -U postgres -d rh -f sql/2-VIEW.sql
+psql -U postgres -d rh -f sql/data/3-INSERT.sql
+psql -U postgres -d rh -f sql/data/4-ADD-NOTE-CV.sql
 
-# 5. Lancer l'application
+# 5. Configuration finale
+php artisan storage:link
+chmod -R 775 storage bootstrap/cache
+
+# 6. Lancer le serveur
 php artisan serve
+```
+
+📖 **[Guide d'Installation Complet](docs/INSTALLATION.md)** - Instructions détaillées, déploiement production, optimisations
