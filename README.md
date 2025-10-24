@@ -148,3 +148,29 @@ RH/
 4. Suivre sa candidature en temps réel
 
 📖 **[Guide d'Utilisation Complet](docs/USAGE.md)** - Tutoriels détaillés par rôle, conseils et bonnes pratiques
+
+## 🔍 Fonctionnalités Avancées
+
+### Analyse IA du CV
+- Extraction automatique du texte (PDF/DOC)
+- Analyse sémantique des compétences
+- Évaluation de l'adéquation avec le poste
+- Score sur 100 généré automatiquement
+
+### Score Global Multi-Critères
+```
+Score Global = (Note CV + Score Test + Note Entretien) / 3
+```
+
+### Filtres Avancés
+- Recherche par nom/prénom
+- Filtre par âge (min/max)
+- Filtre par compétences
+- Filtre par statut
+
+## 📊 API Utilisées
+
+### Gemini AI (Google)
+- **Endpoint** : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
+- **Usage** : Analyse des CV et extraction de compétences
+- **Documentation** : [Gemini API Docs](https://ai.google.dev/docs)
