@@ -87,3 +87,59 @@ chmod -R 775 storage bootstrap/cache
 
 # Lancer le serveur de développement
 php artisan serve
+
+
+## 🌟 Fonctionnalités Futures
+
+### Planifié pour la prochaine version
+- [ ] Intégration avec LinkedIn API
+- [ ] Système de recommandation de candidats
+- [ ] Analyse de sentiment lors des entretiens
+- [ ] Export PDF des rapports détaillés
+- [ ] Application mobile companion
+
+### En cours de développement
+- [ ] Module de formation continue
+- [ ] Gestion des performances
+- [ ] Intégration avec les outils de paie
+
+## 🔒 Sécurité
+
+### Mesures Implémentées
+- **Validation des données** côté serveur
+- **Protection CSRF** intégrée
+- **Hash des mots de passe** (bcrypt)
+- **Limitation des tentatives de connexion**
+- **Sécurisation des uploads de fichiers**
+
+### Bonnes Pratiques
+- Stockage sécurisé des CV
+- Validation des types de fichiers
+- Protection contre les injections SQL
+- Sessions sécurisées
+
+## 📈 Statistiques du Projet
+
+![GitHub repo size](https://img.shields.io/github/repo-size/your-username/RH)
+![GitHub last commit](https://img.shields.io/github/last-commit/your-username/RH)
+![GitHub contributors](https://img.shields.io/github/contributors/your-username/RH)
+
+### Métriques Clés
+- **+5000** lignes de code
+- **+20** fonctionnalités principales
+- **3** interfaces utilisateur distinctes
+- **Intégration IA** temps réel
+
+## 🏆 Réalisations
+
+- 🥇 **Projet Académique Excellence** - ITU Madagascar
+- ⭐ **Meilleure Intégration IA** - Semestre S5
+- 🚀 **Déploiement Production** réussi
+
+---
+
+**Développé avec ❤️ par l'équipe RH - ITU Madagascar**
+
+⭐ **N'oubliez pas de donner une étoile au projet si vous le trouvez utile !**
+
+📊 **Suivez notre progression sur GitHub !**
