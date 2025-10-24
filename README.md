@@ -1,46 +1,68 @@
-# 🏢 Système de Gestion des Ressources Humaines (SGRH) - ITU Madagascar
+# 🏢 Système de Gestion des Ressources Humaines
 
-[![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20.svg)](https://laravel.com)
-[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4.svg)](https://php.net)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791.svg)](https://postgresql.org)
-[![GitHub Issues](https://img.shields.io/github/issues/your-username/RH)](https://github.com/your-username/RH/issues)
-[![GitHub Stars](https://img.shields.io/github/stars/your-username/RH)](https://github.com/your-username/RH/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/your-username/RH)](https://github.com/your-username/RH/network/members)
+[![Laravel](https://img.shields.io/badge/Laravel-11.x-red.svg)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-blue.svg)](https://php.net)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-blue.svg)](https://postgresql.org)
+[![License](https://img.shields.io/badge/License-Academic-green.svg)](LICENSE)
 
-> **SGRH** - Application web complète de gestion des ressources humaines avec analyse IA des CV. Développé avec Laravel, PostgreSQL et Gemini AI dans le cadre du projet académique ITU S5.
+Application web complète de gestion des ressources humaines avec analyse IA des CV, développée dans le cadre du projet académique ITU S5.
 
-## 🎯 Aperçu du Projet
+## ✨ Fonctionnalités Principales
 
-Le **Système de Gestion des Ressources Humaines (SGRH)** est une solution complète qui modernise les processus RH grâce à l'intelligence artificielle. Notre système automatise l'analyse des CV, optimise le recrutement et fournit des insights data-driven pour une prise de décision éclairée.
+### 🎯 Gestion du Recrutement
+- **Publication d'annonces** avec critères détaillés
+- **Postulation en ligne** avec upload de CV
+- **Analyse IA du CV** via Gemini AI (extraction compétences + note d'adéquation)
+- **Tests QCM** personnalisés par poste
+- **Planification d'entretiens** avec notifications
+- **Évaluation multi-critères** (CV + Test + Entretien)
+- **Tri et filtrage avancé** des candidats
 
-### 🚀 Démo Live
-- **Application principale**: [Lien vers la démo]()
-- **Admin Demo**: `admin@rh.mg` / `admin123`
-- **RH Demo**: `rh@rh.mg` / `rh123`
+### 👥 Gestion des Employés
+- **Dossiers employés** complets
+- **Gestion des contrats** (CDI, CDD, Stage)
+- **Affiliations sociales** (CNAPS, OSTIE, Sanitaire)
+- **Historique de carrière**
 
-## ✨ Fonctionnalités Clés
+### 📊 Tableau de Bord
+- **Statistiques en temps réel** (candidatures, tests, entretiens)
+- **Graphiques interactifs** (Chart.js)
+- **Notifications** push en temps réel
+- **Rapports** exportables
 
-### 🤖 Intelligence Artificielle Intégrée
-- **Analyse automatique des CV** avec Gemini AI
-- **Extraction intelligente** des compétences et expériences
-- **Score d'adéquation** calculé automatiquement (0-100)
-- **Recommandation de candidats** basée sur l'IA
+### 🤖 Intelligence Artificielle
+- **Extraction automatique** du texte des CV (PDF/DOC)
+- **Analyse sémantique** des compétences
+- **Évaluation de l'adéquation** CV/Poste (score sur 100)
+- **Score global** calculé sur 3 critères
 
-### 📊 Tableaux de Bord Avancés
-- **Statistiques en temps réel** avec Chart.js
-- **Métriques RH** personnalisables
-- **Rapports exportables** (PDF, Excel)
-- **Visualisation des données** de recrutement
+## 🛠️ Technologies Utilisées
 
-### 🔍 Recrutement Intelligent
-- **Filtres multi-critères** avancés
-- **Tests QCM** personnalisables
-- **Planification d'entretiens** automatisée
-- **Workflow de recrutement** complet
+### Backend
+- **Laravel 11.x** - Framework PHP
+- **PostgreSQL 15+** - Base de données
+- **Gemini AI** - Analyse des CV
+- **GuzzleHTTP** - Client HTTP pour API
 
-[Voir toutes les fonctionnalités →](#-fonctionnalités-principales)
+### Frontend
+- **Blade Templates** - Moteur de templates Laravel
+- **Bootstrap 5** - Framework CSS
+- **Chart.js** - Graphiques interactifs
+- **JavaScript Vanilla** - Interactions dynamiques
 
-## 🛠️ Installation & Démarrage
+### Outils
+- **Composer** - Gestionnaire de dépendances PHP
+- **Git** - Contrôle de version
+- **Artisan** - CLI Laravel
+
+## 📋 Prérequis
+
+- PHP >= 8.2
+- PostgreSQL >= 15
+- Composer >= 2.0
+- Extension PHP : pdo_pgsql, mbstring, openssl, fileinfo
+
+## 🚀 Installation Rapide
 
 ### Prérequis
 - PHP 8.2+ | PostgreSQL 15+ | Composer 2.0+
