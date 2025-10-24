@@ -207,3 +207,29 @@ Ce projet est académique. Les contributions sont les bienvenues pour :
 
 ### Convention de commits
 Suivre le guide dans [docs/COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md)
+
+## 📝 Licence
+
+Projet académique - ITU Madagascar S5
+
+## 👥 Auteurs
+
+- **Équipe RH** - Développement et conception
+- **ITU S5** - Encadrement académique
+
+## 🙏 Remerciements
+
+- **Mr Tovo** - Encadrant du projet
+- **Google Gemini AI** - API d'analyse de CV
+- **Laravel Community** - Framework et documentation
+- **ITU Madagascar** - Formation et ressources
+
+## 📞 Contact
+
+Pour toute question ou suggestion :
+- **Email** : contact@rh-itu.mg
+- **GitHub Issues** : [Créer une issue](https://github.com/votre-username/RH/issues)
+
+---
+
+**Développé avec ❤️ par l'équipe RH - ITU Madagascar**
