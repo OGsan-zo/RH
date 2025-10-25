@@ -52,10 +52,10 @@ Route::prefix('RH')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('rh.logout');
 
 
-    // Tableau de bord RH
-    Route::get('/dashboard', function () {
-        return view('rh.dashboard');
-    })->middleware(['auth.custom', 'role:rh'])->name('rh.dashboard');
+    // Tableau de bord RH (AdminLTE)
+    Route::get('/dashboard', [App\Http\Controllers\DashboardRhController::class, 'index'])
+        ->middleware(['auth.custom', 'role:rh'])
+        ->name('rh.dashboard');
 
     // Tableau de bord Admin
     Route::get('/admin', function () {
