@@ -3,7 +3,15 @@
     <li class="nav-item">
         <a href="{{ route('rh.dashboard') }}" class="nav-link {{ request()->routeIs('rh.dashboard') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>Tableau de Bord</p>
+            <p>Dashboard RH</p>
+        </a>
+    </li>
+
+    <!-- Départements -->
+    <li class="nav-item">
+        <a href="{{ route('departements.index') }}" class="nav-link {{ request()->routeIs('departements.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-building"></i>
+            <p>Départements</p>
         </a>
     </li>
 
@@ -32,26 +40,15 @@
         </ul>
     </li>
 
-    <!-- Candidatures -->
-    <li class="nav-item {{ request()->routeIs('tri.*') ? 'menu-open' : '' }}">
-        <a href="#" class="nav-link {{ request()->routeIs('tri.*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-                Candidatures
-                <i class="right fas fa-angle-left"></i>
-            </p>
+    <!-- Tri des Candidats -->
+    <li class="nav-item">
+        <a href="{{ route('tri.index') }}" class="nav-link {{ request()->routeIs('tri.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-sort-amount-down"></i>
+            <p>📊 Tri des Candidats</p>
         </a>
-        <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="{{ route('tri.index') }}" class="nav-link {{ request()->routeIs('tri.*') ? 'active' : '' }}">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Tri des candidats</p>
-                </a>
-            </li>
-        </ul>
     </li>
 
-    <!-- Tests -->
+    <!-- Tests QCM -->
     <li class="nav-item {{ request()->routeIs('tests.*') || request()->routeIs('resultats.*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ request()->routeIs('tests.*') || request()->routeIs('resultats.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-clipboard-check"></i>
@@ -62,29 +59,29 @@
         </a>
         <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="{{ route('tests.view') }}" class="nav-link {{ request()->routeIs('tests.view') ? 'active' : '' }}">
+                <a href="{{ route('tests.create') }}" class="nav-link {{ request()->routeIs('tests.create') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Liste des tests</p>
+                    <p>Créer un test QCM</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('tests.create') }}" class="nav-link {{ request()->routeIs('tests.create') ? 'active' : '' }}">
+                <a href="{{ route('tests.view') }}" class="nav-link {{ request()->routeIs('tests.view') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Créer un test</p>
+                    <p>Voir les tests QCM</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('resultats.select') }}" class="nav-link {{ request()->routeIs('resultats.*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Résultats</p>
+                    <p>Résultats QCM candidats</p>
                 </a>
             </li>
         </ul>
     </li>
 
     <!-- Entretiens -->
-    <li class="nav-item {{ request()->routeIs('entretiens.*') ? 'menu-open' : '' }}">
-        <a href="#" class="nav-link {{ request()->routeIs('entretiens.*') ? 'active' : '' }}">
+    <li class="nav-item {{ request()->routeIs('entretiens.*') || request()->routeIs('evaluations.*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link {{ request()->routeIs('entretiens.*') || request()->routeIs('evaluations.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-calendar-alt"></i>
             <p>
                 Entretiens
@@ -95,62 +92,84 @@
             <li class="nav-item">
                 <a href="{{ route('entretiens.index') }}" class="nav-link {{ request()->routeIs('entretiens.index') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Mes entretiens</p>
+                    <p>Gestion des entretiens</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('entretiens.create') }}" class="nav-link {{ request()->routeIs('entretiens.create') ? 'active' : '' }}">
+                <a href="{{ route('entretiens.calendrier') }}" class="nav-link {{ request()->routeIs('entretiens.calendrier') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Planifier</p>
+                    <p>Calendrier des entretiens</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('evaluations.index') }}" class="nav-link {{ request()->routeIs('evaluations.index') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Évaluer les entretiens</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('evaluations.resultats') }}" class="nav-link {{ request()->routeIs('evaluations.resultats') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Résultats globaux</p>
                 </a>
             </li>
         </ul>
     </li>
 
-    <!-- Décisions -->
+    <!-- Décision de recrutement -->
     <li class="nav-item">
-        <a href="{{ route('resultats.select') }}" class="nav-link {{ request()->routeIs('decisions.*') ? 'active' : '' }}">
+        <a href="{{ route('evaluations.resultats') }}" class="nav-link {{ request()->routeIs('decisions.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-gavel"></i>
-            <p>Décisions</p>
+            <p>Décision de recrutement</p>
         </a>
     </li>
 
-    <!-- Employés -->
-    <li class="nav-item {{ request()->routeIs('employes.*') || request()->routeIs('contrats.*') || request()->routeIs('affiliations.*') ? 'menu-open' : '' }}">
-        <a href="#" class="nav-link {{ request()->routeIs('employes.*') || request()->routeIs('contrats.*') || request()->routeIs('affiliations.*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-user-tie"></i>
+    <!-- Contrats -->
+    <li class="nav-item {{ request()->routeIs('contrats.*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link {{ request()->routeIs('contrats.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file-contract"></i>
             <p>
-                Employés
+                Contrats
                 <i class="right fas fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="{{ route('employes.index') }}" class="nav-link {{ request()->routeIs('employes.*') ? 'active' : '' }}">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Liste des employés</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('contrats.index') }}" class="nav-link {{ request()->routeIs('contrats.*') ? 'active' : '' }}">
+                <a href="{{ route('contrats.index') }}" class="nav-link {{ request()->routeIs('contrats.index') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Contrats</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('affiliations.index') }}" class="nav-link {{ request()->routeIs('affiliations.*') ? 'active' : '' }}">
+                <a href="{{ route('contrats.status') }}" class="nav-link {{ request()->routeIs('contrats.status') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Affiliations</p>
+                    <p>Statut des contrats</p>
                 </a>
             </li>
         </ul>
     </li>
 
-    <!-- Départements -->
+    <!-- Affiliations sociales -->
     <li class="nav-item">
-        <a href="{{ route('departements.index') }}" class="nav-link {{ request()->routeIs('departements.*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-building"></i>
-            <p>Départements</p>
+        <a href="{{ route('affiliations.index') }}" class="nav-link {{ request()->routeIs('affiliations.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-hospital"></i>
+            <p>Affiliations sociales</p>
+        </a>
+    </li>
+
+    <!-- Notifications -->
+    <li class="nav-item">
+        <a href="{{ route('notifications.index') }}" class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-bell"></i>
+            <p>Notifications</p>
+        </a>
+    </li>
+
+    <!-- Employés -->
+    <li class="nav-item">
+        <a href="{{ route('employes.index') }}" class="nav-link {{ request()->routeIs('employes.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-user-tie"></i>
+            <p>Employés</p>
         </a>
     </li>
 
