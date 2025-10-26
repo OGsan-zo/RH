@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Candidature;
 use App\Models\Entretien;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DashboardRhController extends Controller
 {
@@ -34,6 +36,62 @@ class DashboardRhController extends Controller
             ->limit(5)
             ->get();
 
-        return view('rh.dashboard-adminlte', compact('stats', 'dernieresCandidatures', 'prochainsEntretiens'));
+        // Données pour le graphique d'évolution des candidatures (7 derniers mois)
+        $evolutionCandidatures = [];
+        $labels = [];
+        
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::now()->subMonths($i);
+            $labels[] = $date->locale('fr')->isoFormat('MMM');
+            
+            $count = Candidature::whereYear('date_candidature', $date->year)
+                ->whereMonth('date_candidature', $date->month)
+                ->count();
+            
+            $evolutionCandidatures[] = $count;
+        }
+
+        // Données pour le graphique doughnut (répartition par statut)
+        $repartitionStatuts = Candidature::select('statut', DB::raw('count(*) as total'))
+            ->groupBy('statut')
+            ->get();
+
+        $statutLabels = [];
+        $statutData = [];
+        $statutColors = [
+            'en_attente' => 'rgb(108, 117, 125)',
+            'test_en_cours' => 'rgb(23, 162, 184)',
+            'en_entretien' => 'rgb(255, 193, 7)',
+            'retenu' => 'rgb(40, 167, 69)',
+            'refuse' => 'rgb(220, 53, 69)',
+            'employe' => 'rgb(111, 66, 193)'
+        ];
+
+        $statutNoms = [
+            'en_attente' => 'En attente',
+            'test_en_cours' => 'Test en cours',
+            'en_entretien' => 'En entretien',
+            'retenu' => 'Retenu',
+            'refuse' => 'Refusé',
+            'employe' => 'Employé'
+        ];
+
+        $colors = [];
+        foreach ($repartitionStatuts as $statut) {
+            $statutLabels[] = $statutNoms[$statut->statut] ?? ucfirst($statut->statut);
+            $statutData[] = $statut->total;
+            $colors[] = $statutColors[$statut->statut] ?? 'rgb(128, 128, 128)';
+        }
+
+        return view('rh.dashboard-adminlte', compact(
+            'stats', 
+            'dernieresCandidatures', 
+            'prochainsEntretiens',
+            'labels',
+            'evolutionCandidatures',
+            'statutLabels',
+            'statutData',
+            'colors'
+        ));
     }
 }
