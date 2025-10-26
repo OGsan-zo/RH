@@ -264,18 +264,19 @@
 
 @push('scripts')
 <script>
-    // Graphique des candidatures
+    // Graphique des candidatures (données réelles)
     const ctxCandidatures = document.getElementById('candidaturesChart').getContext('2d');
     new Chart(ctxCandidatures, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil'],
+            labels: {!! json_encode($labels) !!},
             datasets: [{
                 label: 'Candidatures',
-                data: [12, 19, 15, 25, 22, 30, 28],
+                data: {!! json_encode($evolutionCandidatures) !!},
                 borderColor: 'rgb(52, 152, 219)',
                 backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                tension: 0.4
+                tension: 0.4,
+                fill: true
             }]
         },
         options: {
@@ -284,26 +285,35 @@
             plugins: {
                 legend: {
                     display: true
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Candidatures: ' + context.parsed.y;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
                 }
             }
         }
     });
 
-    // Graphique des statuts
+    // Graphique des statuts (données réelles)
     const ctxStatut = document.getElementById('statutChart').getContext('2d');
     new Chart(ctxStatut, {
         type: 'doughnut',
         data: {
-            labels: ['En attente', 'Test en cours', 'En entretien', 'Retenu', 'Refusé'],
+            labels: {!! json_encode($statutLabels) !!},
             datasets: [{
-                data: [30, 20, 15, 10, 25],
-                backgroundColor: [
-                    'rgb(108, 117, 125)',
-                    'rgb(23, 162, 184)',
-                    'rgb(255, 193, 7)',
-                    'rgb(40, 167, 69)',
-                    'rgb(220, 53, 69)'
-                ]
+                data: {!! json_encode($statutData) !!},
+                backgroundColor: {!! json_encode($colors) !!}
             }]
         },
         options: {
@@ -312,6 +322,17 @@
             plugins: {
                 legend: {
                     position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return label + ': ' + value + ' (' + percentage + '%)';
+                        }
+                    }
                 }
             }
         }
