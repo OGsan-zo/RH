@@ -44,7 +44,7 @@
     <li class="nav-item">
         <a href="{{ route('tri.index') }}" class="nav-link {{ request()->routeIs('tri.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-sort-amount-down"></i>
-            <p>📊 Tri des Candidats</p>
+            <p>Tri des Candidats</p>
         </a>
     </li>
 
@@ -170,6 +170,16 @@
         <a href="{{ route('employes.index') }}" class="nav-link {{ request()->routeIs('employes.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-user-tie"></i>
             <p>Employés</p>
+        </a>
+    </li>
+
+    <li class="nav-header">EXPORTS & RAPPORTS</li>
+
+    <!-- Export CV -->
+    <li class="nav-item">
+        <a href="{{ route('export.cv') }}" class="nav-link {{ request()->routeIs('export.cv*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file-excel text-success"></i>
+            <p>Exporter les CV</p>
         </a>
     </li>
 

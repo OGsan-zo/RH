@@ -207,5 +207,10 @@ Route::prefix('RH')->group(function () {
         Route::get('/tri-candidats/{annonceId}', [TriCandidatController::class, 'show'])->name('tri.show');
     });
 
+    // Export des CV en Excel (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/export-cv', [App\Http\Controllers\ExportCvController::class, 'index'])->name('export.cv');
+        Route::get('/export-cv/download', [App\Http\Controllers\ExportCvController::class, 'export'])->name('export.cv.download');
+    });
 
 });

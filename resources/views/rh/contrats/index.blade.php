@@ -82,6 +82,7 @@
                                     <th>Début</th>
                                     <th>Fin</th>
                                     <th>Salaire</th>
+                                    <th class="text-center">Renouvellements</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -101,14 +102,25 @@
                                     </td>
                                     <td><strong>{{ number_format($c->salaire, 0, ',', ' ') }} Ar</strong></td>
                                     <td class="text-center">
-                                        <a href="{{ route('contrats.edit',$c->id) }}" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-sync-alt"></i> Renouveler
-                                        </a>
+                                        <span class="badge badge-{{ $c->renouvellement >= 1 ? 'danger' : 'success' }}">
+                                            {{ $c->renouvellement }}/1
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        @if($c->peutEtreRenouvele())
+                                            <a href="{{ route('contrats.edit',$c->id) }}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-sync-alt"></i> Modifier
+                                            </a>
+                                        @else
+                                            <button class="btn btn-secondary btn-sm" disabled title="Déjà modifié une fois">
+                                                <i class="fas fa-ban"></i> Bloqué
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted">
+                                    <td colspan="8" class="text-center text-muted">
                                         <i class="fas fa-info-circle"></i> Aucun contrat enregistré
                                     </td>
                                 </tr>

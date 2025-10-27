@@ -97,6 +97,11 @@ class ContratController extends Controller
         $contrat = Contrat::with('candidature.candidat','candidature.annonce')->findOrFail($id);
 
         if ($request->isMethod('post')) {
+            // ⚠️ RÈGLE MÉTIER GLOBALE : Un contrat ne peut être modifié qu'UNE SEULE FOIS
+            if (!$contrat->peutEtreRenouvele()) {
+                return back()->with('error', 'Ce contrat a déjà été modifié une fois. Aucune modification supplémentaire n\'est autorisée.');
+            }
+
             $request->validate([
                 'type_contrat' => 'required|in:essai,CDD,CDI',
                 'statut' => 'required|in:actif,renouvelé,fin_essai,termine,expiré,clos,suspendu',
@@ -104,29 +109,17 @@ class ContratController extends Controller
                 'salaire' => 'required|numeric|min:0',
             ]);
 
-            // Règle métier pour contrat d’essai
-            if ($request->type_contrat === 'essai') {
-                if ($contrat->renouvellement >= 1 && $contrat->type_contrat === 'essai') {
-                    return back()->with('error', 'Le contrat d’essai a déjà été renouvelé une fois.');
-                }
-
-                if ($request->filled('date_fin')) {
-                    $debut = Carbon::parse($contrat->date_debut);
-                    $fin = Carbon::parse($request->date_fin);
-                    if ($debut->diffInMonths($fin) > 6) {
-                        return back()->with('error', 'Un contrat d’essai ne peut dépasser 6 mois au total.');
-                    }
+            // Règle métier pour contrat d'essai (durée maximale 6 mois)
+            if ($request->type_contrat === 'essai' && $request->filled('date_fin')) {
+                $debut = Carbon::parse($contrat->date_debut);
+                $fin = Carbon::parse($request->date_fin);
+                if ($debut->diffInMonths($fin) > 6) {
+                    return back()->with('error', 'Un contrat d\'essai ne peut dépasser 6 mois au total.');
                 }
             }
 
-            // Gestion du compteur de renouvellement
-            if ($contrat->renouvellement >= 1 && $contrat->type_contrat === $request->type_contrat) {
-                return back()->with('error', 'Ce contrat a déjà été renouvelé une fois.');
-            }
-
-            $renouvellement = ($contrat->type_contrat === $request->type_contrat)
-                ? min($contrat->renouvellement + 1, 1)
-                : 0;
+            // Incrémenter le compteur de renouvellement (peu importe le type de contrat)
+            $renouvellement = min($contrat->renouvellement + 1, 1);
 
             $contrat->update([
                 'type_contrat'   => $request->type_contrat,
