@@ -17,7 +17,7 @@ INSERT INTO users (name, email, password, role)
 VALUES (
     'Responsable RH',
     'rh@rh.local',
-    crypt('rh123', gen_salt('bf')),
+    crypt('rh1234', gen_salt('bf')),
     'rh'
 );
 
