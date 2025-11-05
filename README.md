@@ -227,9 +227,5 @@ Projet académique - ITU Madagascar S5
 ## 📞 Contact
 
 Pour toute question ou suggestion :
-- **Email** : contact@rh-itu.mg
-- **GitHub Issues** : [Créer une issue](https://github.com/votre-username/RH/issues)
-
----
-
-**Développé avec ❤️ par l'équipe RH - ITU Madagascar**
+- **Email** : zoheriniaina@gmail.com
+- **GitHub Issues** : [Créer une issue](https://github.com/OGSan-zo/RH/issues)
