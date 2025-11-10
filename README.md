@@ -87,7 +87,7 @@ psql -U postgres -d rh -f sql/data/4-ADD-NOTE-CV.sql
 php artisan storage:link
 chmod -R 775 storage bootstrap/cache
 
-# 6. Lancer le serveur
+6. Lancer le serveur
 php artisan serve
 ```
 
