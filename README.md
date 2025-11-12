@@ -66,7 +66,7 @@ Application web complète de gestion des ressources humaines avec analyse IA des
 
 ```bash
 # 1. Cloner le projet
-git clone https://github.com/votre-username/RH.git
+git clone https://github.com/OGSan-zo/RH.git
 cd RH
 
 # 2. Installer les dépendances
