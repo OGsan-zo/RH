@@ -95,13 +95,9 @@ php artisan serve
 
 ## 👤 Comptes de Test
 
-### Administrateur
-- **Email** : `admin@rh.mg`
-- **Mot de passe** : `admin123`
-
 ### RH
-- **Email** : `rh@rh.mg`
-- **Mot de passe** : `rh123`
+- **Email** : `rh@example.com`
+- **Mot de passe** : `rh1234`
 
 ### Candidat
 - **Inscription** : `/RH/register`
