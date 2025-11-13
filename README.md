@@ -208,11 +208,6 @@ Suivre le guide dans [docs/COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md)
 
 Projet académique - ITU Madagascar S5
 
-## 👥 Auteurs
-
-- **Équipe RH** - Développement et conception
-- **ITU S5** - Encadrement académique
-
 ## 🙏 Remerciements
 
 - **Mr Tovo** - Encadrant du projet
