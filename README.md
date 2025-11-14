@@ -167,7 +167,6 @@ Score Global = (Note CV + Score Test + Note Entretien) / 3
 ## 📊 API Utilisées
 
 ### Gemini AI (Google)
-- **Endpoint** : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
 - **Usage** : Analyse des CV et extraction de compétences
 - **Documentation** : [Gemini API Docs](https://ai.google.dev/docs)
 
