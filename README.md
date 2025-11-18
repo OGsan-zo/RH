@@ -96,7 +96,7 @@ php artisan serve
 ## 👤 Comptes de Test
 
 ### RH
-- **Email** : `rh@example.com`
+- **Email** : `rh.rh@gmaim.com`
 - **Mot de passe** : `rh1234`
 
 ### Candidat
