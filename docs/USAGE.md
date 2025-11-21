@@ -352,7 +352,7 @@ Score Global = (Note CV + Score Test + Note Entretien) / 3
 
 - **Guide d'installation** : [INSTALLATION.md](INSTALLATION.md)
 - **Dépannage** : [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
-- **Contact** : contact@rh-itu.mg
+- **Contact** : zoheriniaina@gmail.com
 
 ---
 
