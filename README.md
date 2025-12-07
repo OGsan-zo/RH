@@ -66,7 +66,7 @@ Application web complète de gestion des ressources humaines avec analyse IA des
 
 ```bash
 # 1. Cloner le projet
-git clone https://github.com/votre-username/RH.git
+git clone https://github.com/OGSan-zo/RH.git
 cd RH
 
 # 2. Installer les dépendances
@@ -95,13 +95,9 @@ php artisan serve
 
 ## 👤 Comptes de Test
 
-### Administrateur
-- **Email** : `admin@rh.mg`
-- **Mot de passe** : `admin123`
-
 ### RH
-- **Email** : `rh@rh.mg`
-- **Mot de passe** : `rh123`
+- **Email** : `rh.rh@gmaim.com`
+- **Mot de passe** : `rh1234`
 
 ### Candidat
 - **Inscription** : `/RH/register`
@@ -171,7 +167,6 @@ Score Global = (Note CV + Score Test + Note Entretien) / 3
 ## 📊 API Utilisées
 
 ### Gemini AI (Google)
-- **Endpoint** : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
 - **Usage** : Analyse des CV et extraction de compétences
 - **Documentation** : [Gemini API Docs](https://ai.google.dev/docs)
 
@@ -212,11 +207,6 @@ Suivre le guide dans [docs/COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md)
 
 Projet académique - ITU Madagascar S5
 
-## 👥 Auteurs
-
-- **Équipe RH** - Développement et conception
-- **ITU S5** - Encadrement académique
-
 ## 🙏 Remerciements
 
 - **Mr Tovo** - Encadrant du projet
@@ -227,9 +217,5 @@ Projet académique - ITU Madagascar S5
 ## 📞 Contact
 
 Pour toute question ou suggestion :
-- **Email** : contact@rh-itu.mg
-- **GitHub Issues** : [Créer une issue](https://github.com/votre-username/RH/issues)
-
----
-
-**Développé avec ❤️ par l'équipe RH - ITU Madagascar**
+- **Email** : zoheriniaina@gmail.com
+- **GitHub Issues** : [Créer une issue](https://github.com/OGSan-zo/RH/issues)

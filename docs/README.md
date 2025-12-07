@@ -97,7 +97,7 @@ Standards Git pour maintenir un historique propre.
 1. **Consulter** [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 2. **Chercher** dans les issues GitHub
 3. **Créer** une nouvelle issue
-4. **Contacter** : contact@rh-itu.mg
+4. **Contacter** : zoheriniaina@gmail.com
 
 ## 📝 Contribution à la Documentation
 
@@ -107,12 +107,6 @@ Pour améliorer cette documentation :
 3. Tester les commandes avant de documenter
 4. Maintenir la cohérence avec les autres documents
 5. Mettre à jour la date de dernière modification
-
-## 🔄 Mises à Jour
-
-Cette documentation est maintenue à jour avec chaque nouvelle version du système.
-
-**Dernière mise à jour** : Octobre 2025
 
 ---
 
