@@ -19,6 +19,11 @@ use App\Http\Controllers\AffiliationSocialeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\EmployeController;
 use App\Http\Controllers\TriCandidatController;
+use App\Http\Controllers\FicheEmployeController;
+use App\Http\Controllers\HistoriquePosteController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\MobiliteController;
+use App\Http\Controllers\DocumentRhController;
 
 
 /*
@@ -211,6 +216,61 @@ Route::prefix('RH')->group(function () {
     Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
         Route::get('/export-cv', [App\Http\Controllers\ExportCvController::class, 'index'])->name('export.cv');
         Route::get('/export-cv/download', [App\Http\Controllers\ExportCvController::class, 'export'])->name('export.cv.download');
+    });
+
+    // GESTION DU PERSONNEL - Fiches Employes (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/fiches-employes', [FicheEmployeController::class, 'index'])->name('fiches-employes.index');
+        Route::get('/fiches-employes/create', [FicheEmployeController::class, 'create'])->name('fiches-employes.create');
+        Route::post('/fiches-employes', [FicheEmployeController::class, 'store'])->name('fiches-employes.store');
+        Route::get('/fiches-employes/{id}', [FicheEmployeController::class, 'show'])->name('fiches-employes.show');
+        Route::get('/fiches-employes/{id}/edit', [FicheEmployeController::class, 'edit'])->name('fiches-employes.edit');
+        Route::post('/fiches-employes/{id}/update', [FicheEmployeController::class, 'update'])->name('fiches-employes.update');
+        Route::get('/fiches-employes/{id}/delete', [FicheEmployeController::class, 'destroy'])->name('fiches-employes.delete');
+    });
+
+    // Historique des Postes (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/historique-postes', [HistoriquePosteController::class, 'index'])->name('historique-postes.index');
+        Route::get('/historique-postes/create', [HistoriquePosteController::class, 'create'])->name('historique-postes.create');
+        Route::post('/historique-postes', [HistoriquePosteController::class, 'store'])->name('historique-postes.store');
+        Route::get('/historique-postes/{id}', [HistoriquePosteController::class, 'show'])->name('historique-postes.show');
+        Route::get('/historique-postes/{id}/edit', [HistoriquePosteController::class, 'edit'])->name('historique-postes.edit');
+        Route::post('/historique-postes/{id}/update', [HistoriquePosteController::class, 'update'])->name('historique-postes.update');
+        Route::get('/historique-postes/{id}/delete', [HistoriquePosteController::class, 'destroy'])->name('historique-postes.delete');
+    });
+
+    // Promotions (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions.index');
+        Route::get('/promotions/create', [PromotionController::class, 'create'])->name('promotions.create');
+        Route::post('/promotions', [PromotionController::class, 'store'])->name('promotions.store');
+        Route::get('/promotions/{id}', [PromotionController::class, 'show'])->name('promotions.show');
+        Route::get('/promotions/{id}/edit', [PromotionController::class, 'edit'])->name('promotions.edit');
+        Route::post('/promotions/{id}/update', [PromotionController::class, 'update'])->name('promotions.update');
+        Route::get('/promotions/{id}/delete', [PromotionController::class, 'destroy'])->name('promotions.delete');
+    });
+
+    // Mobilites (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/mobilites', [MobiliteController::class, 'index'])->name('mobilites.index');
+        Route::get('/mobilites/create', [MobiliteController::class, 'create'])->name('mobilites.create');
+        Route::post('/mobilites', [MobiliteController::class, 'store'])->name('mobilites.store');
+        Route::get('/mobilites/{id}', [MobiliteController::class, 'show'])->name('mobilites.show');
+        Route::get('/mobilites/{id}/edit', [MobiliteController::class, 'edit'])->name('mobilites.edit');
+        Route::post('/mobilites/{id}/update', [MobiliteController::class, 'update'])->name('mobilites.update');
+        Route::get('/mobilites/{id}/delete', [MobiliteController::class, 'destroy'])->name('mobilites.delete');
+    });
+
+    // Documents RH (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/documents-rh', [DocumentRhController::class, 'index'])->name('documents-rh.index');
+        Route::get('/documents-rh/create', [DocumentRhController::class, 'create'])->name('documents-rh.create');
+        Route::post('/documents-rh', [DocumentRhController::class, 'store'])->name('documents-rh.store');
+        Route::get('/documents-rh/{id}', [DocumentRhController::class, 'show'])->name('documents-rh.show');
+        Route::get('/documents-rh/{id}/edit', [DocumentRhController::class, 'edit'])->name('documents-rh.edit');
+        Route::post('/documents-rh/{id}/update', [DocumentRhController::class, 'update'])->name('documents-rh.update');
+        Route::get('/documents-rh/{id}/delete', [DocumentRhController::class, 'destroy'])->name('documents-rh.delete');
     });
 
 });
