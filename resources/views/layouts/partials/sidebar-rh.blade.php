@@ -15,6 +15,8 @@
         </a>
     </li>
 
+    <li class="nav-header">RECRUTEMENT</li>
+
     <!-- Annonces -->
     <li class="nav-item {{ request()->routeIs('annonces.*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ request()->routeIs('annonces.*') ? 'active' : '' }}">
@@ -157,12 +159,87 @@
         </a>
     </li>
 
-    <!-- Notifications -->
-    <li class="nav-item">
-        <a href="{{ route('notifications.index') }}" class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-bell"></i>
-            <p>Notifications</p>
+    <li class="nav-header">GESTION DU PERSONNEL</li>
+
+    <!-- Fiches Employés -->
+    <li class="nav-item {{ request()->routeIs('fiches-employes.*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link {{ request()->routeIs('fiches-employes.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-id-card"></i>
+            <p>
+                Fiches Employés
+                <i class="right fas fa-angle-left"></i>
+            </p>
         </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ route('fiches-employes.index') }}" class="nav-link {{ request()->routeIs('fiches-employes.index') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Liste des fiches</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('fiches-employes.create') }}" class="nav-link {{ request()->routeIs('fiches-employes.create') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Créer une fiche</p>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- Historique des Postes -->
+    <li class="nav-item {{ request()->routeIs('historique-postes.*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link {{ request()->routeIs('historique-postes.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-history"></i>
+            <p>
+                Historique des Postes
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ route('historique-postes.index') }}" class="nav-link {{ request()->routeIs('historique-postes.index') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Historique</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('promotions.index') }}" class="nav-link {{ request()->routeIs('promotions.*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Promotions</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('mobilites.index') }}" class="nav-link {{ request()->routeIs('mobilites.*') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Mobilités</p>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- Documents RH -->
+    <li class="nav-item {{ request()->routeIs('documents-rh.*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link {{ request()->routeIs('documents-rh.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file-pdf"></i>
+            <p>
+                Documents RH
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ route('documents-rh.index') }}" class="nav-link {{ request()->routeIs('documents-rh.index') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tous les documents</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('documents-rh.create') }}" class="nav-link {{ request()->routeIs('documents-rh.create') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Ajouter un document</p>
+                </a>
+            </li>
+        </ul>
     </li>
 
     <!-- Employés -->
@@ -173,7 +250,15 @@
         </a>
     </li>
 
-    <li class="nav-header">EXPORTS & RAPPORTS</li>
+    <!-- Notifications -->
+    <li class="nav-item">
+        <a href="{{ route('notifications.index') }}" class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-bell"></i>
+            <p>Notifications</p>
+        </a>
+    </li>
+
+    <li class="nav-header">OUTILS</li>
 
     <!-- Export CV -->
     <li class="nav-item">
