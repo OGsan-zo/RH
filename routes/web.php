@@ -24,6 +24,9 @@ use App\Http\Controllers\HistoriquePosteController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\MobiliteController;
 use App\Http\Controllers\DocumentRhController;
+use App\Http\Controllers\DemandeCongéController;
+use App\Http\Controllers\SoldeCongéController;
+use App\Http\Controllers\HistoriqueCongéController;
 
 
 /*
@@ -271,6 +274,32 @@ Route::prefix('RH')->group(function () {
         Route::get('/documents-rh/{id}/edit', [DocumentRhController::class, 'edit'])->name('documents-rh.edit');
         Route::post('/documents-rh/{id}/update', [DocumentRhController::class, 'update'])->name('documents-rh.update');
         Route::get('/documents-rh/{id}/delete', [DocumentRhController::class, 'destroy'])->name('documents-rh.delete');
+    });
+
+    // Gestion des Conges - Demandes (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/demandes-conges', [DemandeCongéController::class, 'index'])->name('demandes-conges.index');
+        Route::get('/demandes-conges/create', [DemandeCongéController::class, 'create'])->name('demandes-conges.create');
+        Route::post('/demandes-conges', [DemandeCongéController::class, 'store'])->name('demandes-conges.store');
+        Route::get('/demandes-conges/{demandeCongé}', [DemandeCongéController::class, 'show'])->name('demandes-conges.show');
+        Route::get('/demandes-conges/{demandeCongé}/edit', [DemandeCongéController::class, 'edit'])->name('demandes-conges.edit');
+        Route::put('/demandes-conges/{demandeCongé}', [DemandeCongéController::class, 'update'])->name('demandes-conges.update');
+        Route::post('/demandes-conges/{demandeCongé}/approuver', [DemandeCongéController::class, 'approuver'])->name('demandes-conges.approuver');
+        Route::post('/demandes-conges/{demandeCongé}/rejeter', [DemandeCongéController::class, 'rejeter'])->name('demandes-conges.rejeter');
+        Route::delete('/demandes-conges/{demandeCongé}', [DemandeCongéController::class, 'destroy'])->name('demandes-conges.destroy');
+    });
+
+    // Soldes de Conges (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/soldes-conges', [SoldeCongéController::class, 'index'])->name('soldes-conges.index');
+        Route::get('/soldes-conges/{employe}', [SoldeCongéController::class, 'show'])->name('soldes-conges.show');
+        Route::get('/soldes-conges/{employe}/recalculer', [SoldeCongéController::class, 'recalculer'])->name('soldes-conges.recalculer');
+    });
+
+    // Historique des Conges (RH)
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/historique-conges', [HistoriqueCongéController::class, 'index'])->name('historique-conges.index');
+        Route::get('/historique-conges/{employe}', [HistoriqueCongéController::class, 'show'])->name('historique-conges.show');
     });
 
 });
