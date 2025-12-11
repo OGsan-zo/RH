@@ -263,6 +263,81 @@
         </ul>
     </li>
 
+    <!-- GESTION DES CONGÉS ET ABSENCES - Menu Principal Déroulant -->
+    <li class="nav-item {{ request()->routeIs('demandes-conges.*', 'soldes-conges.*', 'historique-conges.*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link {{ request()->routeIs('demandes-conges.*', 'soldes-conges.*', 'historique-conges.*') ? 'active' : '' }}" style="background-color: #e8f5e9; border-left: 4px solid #28a745;">
+            <i class="nav-icon fas fa-calendar-check" style="color: #28a745; font-weight: bold;"></i>
+            <p style="font-weight: bold; color: #1b5e20;">
+                🗓️ GESTION DES CONGÉS
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <!-- A. Demandes de Congés -->
+            <li class="nav-item {{ request()->routeIs('demandes-conges.*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ request()->routeIs('demandes-conges.*') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-file-alt" style="color: #17a2b8;"></i>
+                    <p>
+                        Demandes de Congés
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('demandes-conges.index') }}" class="nav-link {{ request()->routeIs('demandes-conges.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Liste des demandes</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('demandes-conges.create') }}" class="nav-link {{ request()->routeIs('demandes-conges.create') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Créer une demande</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- B. Suivi des Soldes -->
+            <li class="nav-item {{ request()->routeIs('soldes-conges.*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ request()->routeIs('soldes-conges.*') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-chart-bar" style="color: #ffc107;"></i>
+                    <p>
+                        Suivi des Soldes
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('soldes-conges.index') }}" class="nav-link {{ request()->routeIs('soldes-conges.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Tous les soldes</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- C. Historique des Congés -->
+            <li class="nav-item {{ request()->routeIs('historique-conges.*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ request()->routeIs('historique-conges.*') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-history" style="color: #6f42c1;"></i>
+                    <p>
+                        Historique
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('historique-conges.index') }}" class="nav-link {{ request()->routeIs('historique-conges.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Tous les historiques</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
     <!-- Employés -->
     <li class="nav-item">
         <a href="{{ route('employes.index') }}" class="nav-link {{ request()->routeIs('employes.*') ? 'active' : '' }}">
