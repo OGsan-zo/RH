@@ -29,6 +29,8 @@ use App\Http\Controllers\SoldeCongéController;
 use App\Http\Controllers\HistoriqueCongéController;
 use App\Http\Controllers\CalendrierGlobalController;
 use App\Http\Controllers\SoldeCongesAdminController;
+use App\Http\Controllers\NotificationCongesController;
+use App\Http\Controllers\AlerteCongesController;
 
 
 /*
@@ -313,6 +315,24 @@ Route::prefix('RH')->group(function () {
     Route::middleware(['auth.custom', 'role:rh'])->group(function () {
         Route::get('/soldes-conges-admin/statut', [SoldeCongesAdminController::class, 'statut'])->name('soldes-admin.statut');
         Route::post('/soldes-conges-admin/calculer', [SoldeCongesAdminController::class, 'calculerSoldes'])->name('soldes-admin.calculer');
+    });
+
+    // Notifications de Congés
+    Route::middleware(['auth.custom'])->group(function () {
+        Route::get('/notifications-conges', [NotificationCongesController::class, 'index'])->name('notifications-conges.index');
+        Route::post('/notifications-conges/{id}/lue', [NotificationCongesController::class, 'marquerCommeLue'])->name('notifications-conges.lue');
+        Route::post('/notifications-conges/tout-lu', [NotificationCongesController::class, 'marquerToutCommeLu'])->name('notifications-conges.tout-lu');
+        Route::delete('/notifications-conges/{id}', [NotificationCongesController::class, 'supprimer'])->name('notifications-conges.supprimer');
+        Route::get('/notifications-conges/count', [NotificationCongesController::class, 'compterNonLues'])->name('notifications-conges.count');
+    });
+
+    // Alertes de Congés
+    Route::middleware(['auth.custom'])->group(function () {
+        Route::get('/alertes-conges', [AlerteCongesController::class, 'index'])->name('alertes-conges.index');
+        Route::get('/alertes-conges/resolues', [AlerteCongesController::class, 'resolues'])->name('alertes-conges.resolues');
+        Route::post('/alertes-conges/{id}/resoudre', [AlerteCongesController::class, 'resoudre'])->name('alertes-conges.resoudre');
+        Route::get('/alertes-conges/count', [AlerteCongesController::class, 'compterNonResolues'])->name('alertes-conges.count');
+        Route::get('/alertes-conges/statistiques', [AlerteCongesController::class, 'statistiques'])->name('alertes-conges.statistiques');
     });
 
 });
