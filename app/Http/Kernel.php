@@ -40,5 +40,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth.custom' => \App\Http\Middleware\AuthenticateUser::class,
         'role' => \App\Http\Middleware\CheckRole::class,
+        'can.validate.conges' => \App\Http\Middleware\CanValidateConges::class,
     ];
 }
