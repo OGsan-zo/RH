@@ -356,6 +356,14 @@
 
     <li class="nav-header">OUTILS</li>
 
+    <!-- Calendrier Global -->
+    <li class="nav-item">
+        <a href="{{ route('calendrier.global') }}" class="nav-link {{ request()->routeIs('calendrier.global') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-calendar-alt text-info"></i>
+            <p>Calendrier Global</p>
+        </a>
+    </li>
+
     <!-- Export CV -->
     <li class="nav-item">
         <a href="{{ route('export.cv') }}" class="nav-link {{ request()->routeIs('export.cv*') ? 'active' : '' }}">
