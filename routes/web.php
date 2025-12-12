@@ -283,16 +283,16 @@ Route::prefix('RH')->group(function () {
         Route::get('/documents-rh/{id}/delete', [DocumentRhController::class, 'destroy'])->name('documents-rh.delete');
     });
 
-    // Gestion des Conges - Demandes (RH)
-    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+    // Gestion des Congés - Demandes (RH + Manager)
+    Route::middleware(['auth.custom', 'role:rh|manager'])->group(function () {
         Route::get('/demandes-conges', [DemandeCongéController::class, 'index'])->name('demandes-conges.index');
         Route::get('/demandes-conges/create', [DemandeCongéController::class, 'create'])->name('demandes-conges.create');
         Route::post('/demandes-conges', [DemandeCongéController::class, 'store'])->name('demandes-conges.store');
         Route::get('/demandes-conges/{demandeCongé}', [DemandeCongéController::class, 'show'])->name('demandes-conges.show');
         Route::get('/demandes-conges/{demandeCongé}/edit', [DemandeCongéController::class, 'edit'])->name('demandes-conges.edit');
         Route::put('/demandes-conges/{demandeCongé}', [DemandeCongéController::class, 'update'])->name('demandes-conges.update');
-        Route::post('/demandes-conges/{demandeCongé}/approuver', [DemandeCongéController::class, 'approuver'])->name('demandes-conges.approuver');
-        Route::post('/demandes-conges/{demandeCongé}/rejeter', [DemandeCongéController::class, 'rejeter'])->name('demandes-conges.rejeter');
+        Route::post('/demandes-conges/{demandeCongé}/approuver', [DemandeCongéController::class, 'approuver'])->middleware('can.validate.conges')->name('demandes-conges.approuver');
+        Route::post('/demandes-conges/{demandeCongé}/rejeter', [DemandeCongéController::class, 'rejeter'])->middleware('can.validate.conges')->name('demandes-conges.rejeter');
         Route::delete('/demandes-conges/{demandeCongé}', [DemandeCongéController::class, 'destroy'])->name('demandes-conges.destroy');
     });
 
