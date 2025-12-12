@@ -25,4 +25,19 @@ class Employe extends Model
     {
         return $this->belongsTo(Contrat::class, 'contrat_id');
     }
+
+    public function manager()
+    {
+        return $this->belongsTo(Employe::class, 'manager_id');
+    }
+
+    public function subalternes()
+    {
+        return $this->hasMany(Employe::class, 'manager_id');
+    }
+
+    public function soldesConges()
+    {
+        return $this->hasMany(SoldeCongé::class, 'employe_id');
+    }
 }

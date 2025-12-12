@@ -19,9 +19,25 @@ class DemandeCongéController extends Controller
 
     public function index()
     {
-        $demandes = DemandeCongé::with(['employe', 'typeCongé', 'validateur'])
-            ->orderBy('date_creation', 'desc')
-            ->paginate(15);
+        $userRole = session('user_role');
+        $userId = session('user_id');
+
+        // Si RH : voir toutes les demandes
+        // Si Manager : voir les demandes de son équipe
+        if ($userRole === 'rh') {
+            $demandes = DemandeCongé::with(['employe.candidat', 'typeCongé', 'validateur'])
+                ->orderBy('date_creation', 'desc')
+                ->paginate(15);
+        } else {
+            // Manager : voir les demandes de ses subalternes
+            $manager = Employe::where('user_id', $userId)->first();
+            $subalternesIds = $manager ? $manager->subalternes()->pluck('id')->toArray() : [];
+
+            $demandes = DemandeCongé::with(['employe.candidat', 'typeCongé', 'validateur'])
+                ->whereIn('employe_id', $subalternesIds)
+                ->orderBy('date_creation', 'desc')
+                ->paginate(15);
+        }
 
         return view('conges.demandes.index', compact('demandes'));
     }
@@ -105,13 +121,18 @@ class DemandeCongéController extends Controller
 
     public function approuver(Request $request, DemandeCongé $demandeCongé)
     {
+        // Vérifier les permissions
+        if (!$this->peutValider($demandeCongé)) {
+            return redirect()->back()->with('error', 'Vous n\'avez pas la permission de valider cette demande');
+        }
+
         $validated = $request->validate([
             'commentaire_validation' => 'nullable|string'
         ]);
 
         $this->congéService->validerDemandeCongé(
             $demandeCongé,
-            auth()->id(),
+            session('user_id'),
             true,
             $validated['commentaire_validation'] ?? null
         );
@@ -122,19 +143,53 @@ class DemandeCongéController extends Controller
 
     public function rejeter(Request $request, DemandeCongé $demandeCongé)
     {
+        // Vérifier les permissions
+        if (!$this->peutValider($demandeCongé)) {
+            return redirect()->back()->with('error', 'Vous n\'avez pas la permission de valider cette demande');
+        }
+
         $validated = $request->validate([
             'commentaire_validation' => 'required|string'
         ]);
 
         $this->congéService->validerDemandeCongé(
             $demandeCongé,
-            auth()->id(),
+            session('user_id'),
             false,
             $validated['commentaire_validation']
         );
 
         return redirect()->route('demandes-conges.show', $demandeCongé->id)
             ->with('success', 'Demande de congé rejetée');
+    }
+
+    /**
+     * Vérifier si l'utilisateur peut valider une demande
+     * RH : peut valider toutes les demandes
+     * Manager : peut valider les demandes de son équipe
+     */
+    private function peutValider(DemandeCongé $demandeCongé)
+    {
+        $userRole = session('user_role');
+        $userId = session('user_id');
+
+        // RH peut tout valider
+        if ($userRole === 'rh') {
+            return true;
+        }
+
+        // Manager ne peut valider que les demandes de son équipe
+        if ($userRole === 'manager') {
+            $manager = Employe::where('user_id', $userId)->first();
+            if (!$manager) {
+                return false;
+            }
+
+            // Vérifier que l'employé est un subordonné
+            return $demandeCongé->employe->manager_id === $manager->id;
+        }
+
+        return false;
     }
 
     public function destroy(DemandeCongé $demandeCongé)
