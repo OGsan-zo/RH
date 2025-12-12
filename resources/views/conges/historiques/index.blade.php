@@ -31,7 +31,7 @@
                 <tbody>
                     @forelse($historiques as $historique)
                         <tr>
-                            <td>{{ $historique->employe->nom ?? 'N/A' }}</td>
+                            <td>{{ $historique->employe->candidat->nom ?? 'N/A' }} {{ $historique->employe->candidat->prenom ?? '' }}</td>
                             <td>{{ $historique->typeCongé->nom ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($historique->date_debut)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($historique->date_fin)->format('d/m/Y') }}</td>
                             <td><span class="badge badge-info">{{ $historique->nombre_jours_pris }}</span></td>
