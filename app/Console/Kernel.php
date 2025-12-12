@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\CalculerSoldesCongesJob;
+use App\Jobs\VerifierAlertesCongesJob;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,9 +18,9 @@ class Kernel extends ConsoleKernel
         $schedule->job(new CalculerSoldesCongesJob)
             ->yearlyOn(1, 1, '00:00');
 
-        // Optionnel : Exécuter aussi le 1er de chaque mois pour les mises à jour
-        // $schedule->job(new CalculerSoldesCongesJob)
-        //     ->monthlyOn(1, '00:00');
+        // Vérifier les alertes de congés tous les jours à 8h du matin
+        $schedule->job(new VerifierAlertesCongesJob)
+            ->dailyAt('08:00');
     }
 
     /**
