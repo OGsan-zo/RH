@@ -32,7 +32,7 @@
                 <tbody>
                     @forelse($soldes as $solde)
                         <tr>
-                            <td>{{ $solde->employe->nom ?? 'N/A' }}</td>
+                            <td>{{ $solde->employe->candidat->nom ?? 'N/A' }} {{ $solde->employe->candidat->prenom ?? '' }}</td>
                             <td>{{ $solde->typeCongé->nom ?? 'N/A' }}</td>
                             <td><span class="badge badge-info">{{ $solde->jours_acquis }}</span></td>
                             <td><span class="badge badge-warning">{{ $solde->jours_utilises }}</span></td>
