@@ -52,7 +52,7 @@
                         @forelse($demandes as $demande)
                             <tr>
                                 <td>
-                                    <strong>{{ $demande->employe->nom ?? 'N/A' }}</strong>
+                                    <strong>{{ $demande->employe->candidat->nom ?? 'N/A' }} {{ $demande->employe->candidat->prenom ?? '' }}</strong>
                                 </td>
                                 <td>{{ $demande->typeCongé->nom ?? 'N/A' }}</td>
                                 <td>
