@@ -5,6 +5,10 @@ namespace App\Services;
 use App\Models\DemandeCongé;
 use App\Models\HistoriqueCongé;
 use App\Models\SoldeCongé;
+use App\Models\Employe;
+use App\Models\User;
+use App\Notifications\DemandeCongéValideeNotification;
+use App\Notifications\NouvelleDemandeCongeNotification;
 use Carbon\Carbon;
 
 class CongéService
@@ -35,6 +39,9 @@ class CongéService
             'date_modification' => now()
         ]);
 
+        // Notifier le manager et la RH
+        $this->notifierNouvelleDemande($demande);
+
         return $demande;
     }
 
@@ -52,6 +59,9 @@ class CongéService
         $demande->commentaire_validation = $commentaire;
         $demande->date_modification = now();
         $demande->save();
+
+        // Notifier l'employé de la validation
+        $this->notifierValidationDemande($demande, $approuvee);
 
         return $demande;
     }
@@ -99,5 +109,48 @@ class CongéService
         }
 
         return $solde->jours_restants >= $demande->nombre_jours;
+    }
+
+    /**
+     * Notifier le manager et la RH d'une nouvelle demande de congé
+     */
+    private function notifierNouvelleDemande(DemandeCongé $demande)
+    {
+        // Charger l'employé avec ses relations
+        $demande->load('employe.manager');
+
+        // Notifier le manager s'il existe
+        if ($demande->employe->manager) {
+            $manager = $demande->employe->manager;
+            if ($manager->user_id) {
+                $user = User::find($manager->user_id);
+                if ($user) {
+                    $user->notify(new NouvelleDemandeCongeNotification($demande));
+                }
+            }
+        }
+
+        // Notifier tous les RH
+        $rhUsers = User::where('role', 'rh')->get();
+        foreach ($rhUsers as $rhUser) {
+            $rhUser->notify(new NouvelleDemandeCongeNotification($demande));
+        }
+    }
+
+    /**
+     * Notifier l'employé de la validation de sa demande
+     */
+    private function notifierValidationDemande(DemandeCongé $demande, bool $approuvee)
+    {
+        // Charger l'employé avec ses relations
+        $demande->load('employe');
+
+        // Notifier l'employé s'il a un compte utilisateur
+        if ($demande->employe->user_id) {
+            $user = User::find($demande->employe->user_id);
+            if ($user) {
+                $user->notify(new DemandeCongéValideeNotification($demande, $approuvee));
+            }
+        }
     }
 }
