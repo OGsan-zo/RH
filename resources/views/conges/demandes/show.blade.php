@@ -31,7 +31,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <strong>Employé :</strong>
-                            <p>{{ $demandeCongé->employe->nom ?? 'N/A' }}</p>
+                            <p>{{ $demandeCongé->employe->candidat->nom ?? 'N/A' }} {{ $demandeCongé->employe->candidat->prenom ?? '' }}</p>
                         </div>
                         <div class="col-md-6">
                             <strong>Type de Congé :</strong>

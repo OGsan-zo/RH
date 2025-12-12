@@ -27,6 +27,8 @@ use App\Http\Controllers\DocumentRhController;
 use App\Http\Controllers\DemandeCongéController;
 use App\Http\Controllers\SoldeCongéController;
 use App\Http\Controllers\HistoriqueCongéController;
+use App\Http\Controllers\CalendrierGlobalController;
+use App\Http\Controllers\SoldeCongesAdminController;
 
 
 /*
@@ -150,6 +152,11 @@ Route::prefix('RH')->group(function () {
         Route::match(['get','post'], '/entretiens/planifier', [EntretienController::class, 'create'])->name('entretiens.create');
         Route::get('/entretiens/calendrier', [EntretienController::class, 'calendrier'])->name('entretiens.calendrier');
         Route::get('/entretiens/delete/{id}', [EntretienController::class, 'delete'])->name('entretiens.delete');
+    });
+
+    // Calendrier Global (Entretiens + Congés)
+    Route::middleware(['auth.custom', 'role:rh'])->prefix('RH')->group(function () {
+        Route::get('/calendrier-global', [CalendrierGlobalController::class, 'index'])->name('calendrier.global');
     });
 
     // CANDIDAT
@@ -300,6 +307,12 @@ Route::prefix('RH')->group(function () {
     Route::middleware(['auth.custom', 'role:rh'])->group(function () {
         Route::get('/historique-conges', [HistoriqueCongéController::class, 'index'])->name('historique-conges.index');
         Route::get('/historique-conges/{employe}', [HistoriqueCongéController::class, 'show'])->name('historique-conges.show');
+    });
+
+    // Administration des Soldes de Congés
+    Route::middleware(['auth.custom', 'role:rh'])->group(function () {
+        Route::get('/soldes-conges-admin/statut', [SoldeCongesAdminController::class, 'statut'])->name('soldes-admin.statut');
+        Route::post('/soldes-conges-admin/calculer', [SoldeCongesAdminController::class, 'calculerSoldes'])->name('soldes-admin.calculer');
     });
 
 });

@@ -27,7 +27,7 @@
                         <option value="">-- Sélectionner un employé --</option>
                         @foreach($employes as $employe)
                             <option value="{{ $employe->id }}" {{ old('employe_id') == $employe->id ? 'selected' : '' }}>
-                                {{ $employe->nom ?? 'N/A' }}
+                                {{ $employe->candidat->nom ?? 'N/A' }} {{ $employe->candidat->prenom ?? '' }}
                             </option>
                         @endforeach
                     </select>

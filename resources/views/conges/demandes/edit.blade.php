@@ -24,7 +24,7 @@
 
                 <div class="form-group">
                     <label>Employé</label>
-                    <input type="text" class="form-control" value="{{ $demandeCongé->employe->nom ?? 'N/A' }}" disabled>
+                    <input type="text" class="form-control" value="{{ $demandeCongé->employe->candidat->nom ?? 'N/A' }} {{ $demandeCongé->employe->candidat->prenom ?? '' }}" disabled>
                 </div>
 
                 <div class="form-group">

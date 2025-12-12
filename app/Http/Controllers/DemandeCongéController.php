@@ -28,7 +28,7 @@ class DemandeCongéController extends Controller
 
     public function create()
     {
-        $employes = Employe::all();
+        $employes = Employe::with('candidat')->get();
         $typesConges = TypeCongé::where('est_actif', true)->get();
 
         return view('conges.demandes.create', compact('employes', 'typesConges'));
